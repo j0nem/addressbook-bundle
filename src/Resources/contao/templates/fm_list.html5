@@ -1,0 +1,66 @@
+<?php if($this->mode == 'list') : ?>
+
+<section class="fm_list">
+	
+	<div class="list-wrapper">
+	
+	<div class="list-entry head">
+		<div class="list-column head">Name</div>
+		<div class="list-column head">Geburtsjahr</div>
+		<div class="list-column head">Telefon</div>
+		<div class="list-column head">Wohnort</div>
+	</div>
+	
+	
+	<?php foreach ($this->arrFamily as $mem) : ?>
+		<div class="list-entry">
+			<div class="list-column"><a href="<?= $mem['detail_href'] ?>"><?= $mem['name_string'] ?></a></div>
+			<div class="list-column"><?= $mem['date_string'] ?></div>
+			<div class="list-column"><?= $mem['phone'] ?></div>
+			<div class="list-column"><a href="https://google.com/maps/search/<?= str_replace(' ','%20',Family::formatResidence($mem,true)) ?>" target="_blank"><?= Family::formatResidence($mem) ?></a></div>
+		</div>
+	<?php endforeach; ?>
+	
+	</div>
+	
+</section>
+<?php elseif($this->mode == 'detail') : ?>
+
+<section class="fm_detail">
+
+	<div class="profile">
+		<p><b>Geburtstag:</b> <?= Family::formatDate($this->activeRecord,false) ?></p>
+		<h2>Kontakt</h2>
+		<p><b>Adresse:</b> <a href="https://google.com/maps/search/<?= str_replace(' ','%20',Family::formatResidence($this->activeRecord,true)) ?>" target="_blank"><?= Family::formatResidence($this->activeRecord,true) ?></a></p>
+		
+		<?php $mem_acc = Family::getMemberAccount($this->activeRecord['id']); ?>
+		<?php if($mem_acc) : ?>
+			<p><b>E-Mail:</b> <?= $mem_acc->email ?></p>
+		<?php endif; ?>
+		
+		<?php if($this->activeRecord['phone']) : ?><p><b>Telefon:</b> <?= $this->activeRecord['phone'] ?></p><?php endif; ?>
+		<?php if($this->activeRecord['mobile']) : ?><p><b>Handy:</b> <?= $this->activeRecord['mobile'] ?></p><?php endif; ?>
+		<h2>Familie</h2>
+		<?php if($this->activeRecord['father']) : ?><p><b>Vater:</b> <a href="<?= $this->addToUrl('id=' . $this->activeRecord['father'], ['_locale']) ?>"><?= Family::formatName(Family::getAddressEntry($this->activeRecord['father'])) ?></a></p><?php endif; ?>
+		<?php if($this->activeRecord['mother']) : ?><p><b>Mutter:</b> <a href="<?= $this->addToUrl('id=' . $this->activeRecord['mother'], ['_locale']) ?>"><?= Family::formatName(Family::getAddressEntry($this->activeRecord['mother'])) ?></a></p><?php endif; ?>
+		<?php if($this->activeRecord['partner']) : ?><p><b>Partner:</b> <a href="<?= $this->addToUrl('id=' . $this->activeRecord['partner'], ['_locale']) ?>"><?= Family::formatName(Family::getAddressEntry($this->activeRecord['partner'])) ?></a></p><?php endif; ?>
+		
+		<?php $ch = Family::getChildren($this->activeRecord['id']) ?>
+		<?php if(!empty($ch)) : ?>
+			<p><b>Kinder:</b></p>
+			<ul>
+			<?php foreach($ch as $chId) : ?>
+				<li><a href="<?= $this->addToUrl('id=' . $chId, ['_locale']) ?>"><?= Family::formatName(Family::getAddressEntry($chId)) ?></a></li>
+			<?php endforeach; ?>
+			</ul>
+		<?php endif; ?>
+		
+		<?php if(!$this->activeRecord['father'] && !$this->activeRecord['mother'] && !$this->activeRecord['partner']) : ?>Keine Verbindungen eingetragen.<?php endif; ?>
+		<p></p>
+		<p><a href="<?= $this->addToUrl('id=',['_locale','id']) ?>">Zurück zur Liste</a></p>
+	</div>
+	
+
+</section>
+
+<?php endif; ?>
