@@ -1,3 +1,9 @@
 services:
-    kernel_bundle:
-        class: Jmedia\AddressbookBundle\JmediaAddressbookBundle
+	_instanceof:
+		Symfony\Component\DependencyInjection\ContainerAwareInterface:
+			calls:
+				- ["setContainer", ["@service_container"]]
+
+		Contao\CoreBundle\Framework\FrameworkAwareInterface:
+			calls:
+				- ["setFramework", ["@contao.framework"]]
