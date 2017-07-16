@@ -1,9 +1,9 @@
 services:
-	_instanceof:
-		Symfony\Component\DependencyInjection\ContainerAwareInterface:
-			calls:
-				- ["setContainer", ["@service_container"]]
+  _instanceof:
+    Symfony\Component\DependencyInjection\ContainerAwareInterface:
+      calls:
+        - ["setContainer", ["@service_container"]]
 
-		Contao\CoreBundle\Framework\FrameworkAwareInterface:
-			calls:
-				- ["setFramework", ["@contao.framework"]]
+    Contao\CoreBundle\Framework\FrameworkAwareInterface:
+      calls:
+        - ["setFramework", ["@contao.framework"]]
