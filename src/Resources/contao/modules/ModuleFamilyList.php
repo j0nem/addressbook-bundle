@@ -15,11 +15,11 @@
  * @package AddressbookBundle
  * @license GPL-3.0+
  */
- 
+
  namespace Jmedia;
- 
+
  use Patchwork\Utf8;
- 
+
  class ModuleFamilyList extends \Module
 {
  	/**
@@ -62,27 +62,27 @@
 		//Redirect if not logged in
 		if(!FE_USER_LOGGED_IN){
 			/* FUNKTIONIERT in Contao 4 schinbar NICHT MEHR
-			* 
+			*
 			* $objHandler = new $GLOBALS['TL_PTY']['error_403']();
 			* $objHandler->generate($objPage->id);
 			*/
 			return false;
 		}
-		
+
 		$arrList = Family::fullList();
-		
+
 		//DETAIL
 		if($this->Input->get('id') != '' && $arrList[$this->Input->get('id')]) {
 			$this->Template->mode = 'detail';
 			$this->Template->activeRecord = $arrList[$this->Input->get('id')];
-			
+
 			global $objPage;
 			$objPage->pageTitle = Family::formatName($arrList[$this->Input->get('id')]);
 		}
-		
+
 		//LIST
 		else {
-			
+
 			$this->Template->mode = 'list';
 			foreach($arrList as $elem) {
 				$elem['name_string'] = Family::formatName($elem,true);
@@ -90,10 +90,10 @@
 				$elem['detail_href'] = $this->addToUrl('id=' . $elem['id'],['_locale']);
 				$arrFamily[$elem['id']] = $elem;
 			}
-		
+
 			$this->Template->arrFamily = $arrFamily;
 		}
-		
+
 		return true;
 	}
 }

@@ -17,5 +17,5 @@
  */
 
  $GLOBALS['TL_LANG']['MOD']['family'] = 'Familie';
- $GLOBALS['TL_LANG']['MOD']['fm_list'] = array('Adressbuch','Hier k�nnen Sie die Daten aller Mitglieder verwalten');
- $GLOBALS['TL_LANG']['MOD']['fm_verification'] = array('Verifikation','Hier k�nnen Sie neue Mitglieder, �nderungsvorschl�ge und neu hinzugef�gte Adressbucheintr�ge �berpr�fen und freischalten');
+ $GLOBALS['TL_LANG']['MOD']['fm_list'] = array('Adressbuch','Hier können Sie die Daten aller Mitglieder verwalten');
+ $GLOBALS['TL_LANG']['MOD']['fm_verification'] = array('Verifikation','Hier können Sie neue Mitglieder, Anderungsvorschläge und neu hinzugefügte Adressbucheinträge überprüfen und freischalten');

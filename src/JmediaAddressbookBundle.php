@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 /**
  * Contao Open Source CMS
@@ -15,7 +15,7 @@
  * @package AddressbookBundle
  * @license GPL-3.0+
  */
-	
+
 namespace Jmedia\AddressbookBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;

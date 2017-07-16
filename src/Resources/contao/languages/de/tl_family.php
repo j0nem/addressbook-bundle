@@ -24,9 +24,9 @@
  $GLOBALS['TL_LANG']['tl_family']['delete'] = array('Löschen','Person ID %s löschen');
  $GLOBALS['TL_LANG']['tl_family']['show'] = array('Anzeigen','Person ID %s anzeigen');
  $GLOBALS['TL_LANG']['tl_family']['edit_account'] = array('Account bearbeiten','Account der Person ID %s bearbeiten');
- 
+
  $GLOBALS['TL_LANG']['tl_family']['new'] = array('Person hinzufügen','Eine Person zum Adressbuch hinzufügen');
- 
+
  /**
   * Legends
   */
@@ -35,7 +35,7 @@
   $GLOBALS['TL_LANG']['tl_family']['contact_legend'] = 'Kontaktdaten';
   $GLOBALS['TL_LANG']['tl_family']['account_legend'] = 'Account-Einstellungen';
   $GLOBALS['TL_LANG']['tl_family']['family_legend'] = 'Angaben zur Familie';
- 
+
  /**
   * Fields
   */
@@ -52,13 +52,12 @@
   $GLOBALS['TL_LANG']['tl_family']['phone'] = array('Telefon','Bitte geben Sie eine Telefonnummer an.');
   $GLOBALS['TL_LANG']['tl_family']['fax'] = array('Fax','Bitte geben Sie eine Faxnummer an.');
   $GLOBALS['TL_LANG']['tl_family']['account_id'] = array('Verbundener Frontend-Account','Bitte geben Sie die E-Mail des verbundenen E-Mail-Accounts an (falls möglich).');
-  
+
   $GLOBALS['TL_LANG']['tl_family']['mother'] = array('Mutter','Bitte geben Sie den Account der Mutter der Person an, falls vorhanden');
   $GLOBALS['TL_LANG']['tl_family']['father'] = array('Vater','Bitte geben Sie den Account des Vaters der Person an, falls vorhanden');
   $GLOBALS['TL_LANG']['tl_family']['partner'] = array('Partner','Bitte geben Sie den Account des Partners der Person an, falls vorhanden');
   $GLOBALS['TL_LANG']['tl_family']['partner_relation'] = array('Beziehung zum Partner','Bitte geben Sie die Beziehung zum Partner an, falls verlobt oder verheratet.');
   $GLOBALS['TL_LANG']['tl_family']['partner_relation_options'] = array('engaged' => 'verlobt', 'married' => 'verheiratet');
-  
+
   $GLOBALS['TL_LANG']['tl_family']['visible_legend'] = 'Sichtbarkeit';
   $GLOBALS['TL_LANG']['tl_family']['visible'] = array('Sichtbar','Bitte geben Sie an, ob der Eintrag in der Adressliste öffentlich sichtbar gemacht werden soll.');
- 

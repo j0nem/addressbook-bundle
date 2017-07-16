@@ -313,7 +313,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 );
 
 class tl_family extends Backend {
-	
+
 	/**
 	 * Import the back end user object
 	 */
@@ -321,7 +321,7 @@ class tl_family extends Backend {
 		parent::__construct();
 		$this->import('BackendUser', 'User');
 	}
-	
+
 	/**
 	 * Switch to Member Account, if possible
 	 */
@@ -329,37 +329,37 @@ class tl_family extends Backend {
 		if (!$this->User->hasAccess('member', 'modules')) {
 			return '';
 		}
-		
+
 		$objMember = FrontendUser::getInstance();
 
 		if($row['account_id'] == 0 || !$objMember->findBy('id',$row['account_id']))  {
 			return Image::getHtml(preg_replace('/\.svg$/i', '_.svg', $icon)).' ';
 		}
-		
+
 		return '<a href="' . $this->addToUrl($href.'&amp;act=edit&id='.$row['account_id']) . '" title="'.StringUtil::specialchars($title).'">'.Image::getHtml($icon, $label).'</a> ';
 	}
-	
-	
+
+
 	/**
 	 * Generate Labels
 	 */
 	 public function generateLabels($row, $label, DataContainer $dc, $args) {
-		 
-		if($row['nameOfBirth']) 						
+
+		if($row['nameOfBirth'])
 			$args[3] = '(geb. ' . $row['nameOfBirth'] .')';
 
-		if($row['dateOfBirth'] != '') 					
+		if($row['dateOfBirth'] != '')
 			$args[2] = \Jmedia\Family::formatDate($row);
-		
+
 		$objMember = FrontendUser::getInstance();
-		
-		if($objMember->findBy('id',$row['account_id']))	
+
+		if($objMember->findBy('id',$row['account_id']))
 			$args[4] = $objMember->email;
-		 
+
 		return $args;
 	 }
-	 
-	 
+
+
 	/**
 	 * Return the "toggle visibility" button
 	 *
@@ -391,7 +391,7 @@ class tl_family extends Backend {
 
 		return '<a href="'.$this->addToUrl($href).'" title="'.StringUtil::specialchars($title).'"'.$attributes.'>'.Image::getHtml($icon, $label, 'data-state="' . ($row['visible'] ? 1 : 0) . '"').'</a> ';
 	}
-	
+
 	/**
 	 * Toggle Visibility
 	 *

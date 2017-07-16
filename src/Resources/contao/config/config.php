@@ -15,7 +15,7 @@
  * @package AddressbookBundle
  * @license GPL-3.0+
  */
- 
+
 /**
  * Back End Modules
  */
@@ -25,7 +25,7 @@
  $GLOBALS['BE_MOD']['accounts']['fm_verification'] = array(
  	'callback' => 'ModuleFamilyVerification'
  );
- 
+
 /**
  * Front End Modules
  */
