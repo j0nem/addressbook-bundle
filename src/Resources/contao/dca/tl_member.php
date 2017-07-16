@@ -36,7 +36,7 @@
  $GLOBALS['TL_DCA']['tl_member']['list']['operations']['edit_addressbook'] = array(
 	'label'               => &$GLOBALS['TL_LANG']['tl_member']['edit_account'],
 	'href'                => 'do=family_list',
-	'icon'                => 'bundles/jmediafamily/phone.svg',
+	'icon'                => 'bundles/jmediaaddressbook/phone.svg',
 	'button_callback'     => array('tl_member_custom', 'editAdressbook')
  );
  
@@ -56,7 +56,7 @@
 			return '';
 		}
 		
-		$familyList = Family::fullList();
+		$familyList = \Jmedia\Family::fullList();
 
 		foreach($familyList as $entry) {
 			if($entry['account_id'] == $row['id']) {

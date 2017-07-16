@@ -349,7 +349,7 @@ class tl_family extends Backend {
 			$args[3] = '(geb. ' . $row['nameOfBirth'] .')';
 
 		if($row['dateOfBirth'] != '') 					
-			$args[2] = \Family::formatDate($row);
+			$args[2] = \Jmedia\Family::formatDate($row);
 		
 		$objMember = FrontendUser::getInstance();
 		
