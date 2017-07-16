@@ -28,4 +28,6 @@ class AppKernel extends Kernel
 ```
 
 # Notice
-The repository is designed to work for [a specific project](https://familienadressbuch.de).
+The repository is designed to work for [a specific project](https://familienadressbuch.de). 
+
+There is no "stable" version yet.
