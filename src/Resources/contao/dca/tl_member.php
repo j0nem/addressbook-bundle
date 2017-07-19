@@ -31,7 +31,6 @@
  //Add about_me in palettes
  $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('email','email;{verify_legend},about_me',$GLOBALS['TL_DCA']['tl_member']['palettes']);
 
-
  //Add "Edit Adressbook" action button
  $GLOBALS['TL_DCA']['tl_member']['list']['operations']['edit_addressbook'] = array(
 	'label'               => &$GLOBALS['TL_LANG']['tl_member']['edit_account'],

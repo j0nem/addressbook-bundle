@@ -26,7 +26,6 @@
  */
  $GLOBALS['TL_LANG']['tl_member']['about_me'] = array('Familienzugehörigkeit', 'Geben Sie die Relation zur Generation 0 an, sodass man die Person in den Familienstammbaum einsortieren kann.');
 
-
  /**
  * Actions
  */
