@@ -27,10 +27,8 @@ class ModuleFamilyVerification extends \BackendModule {
 
     protected function compile() {
 
-    	echo 'HEEEEELLLLLOOO';
+    	echo 'Hello';
 
     	$this->Template->test = 'Hallo';
-
-    	$this->render('fm_verification.html5.twig');
     }
 }
