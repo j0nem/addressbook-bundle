@@ -27,18 +27,12 @@
         },
         "classmap": [
             "src/Resources/contao/"
-        ],
-        "exclude-from-classmap": [
-            "src/Resources/contao/config/",
-            "src/Resources/contao/dca/",
-            "src/Resources/contao/languages/",
-            "src/Resources/contao/templates/"
         ]
     },
     "config": {
         "preferred-install": "dist"
     },
     "extra": {
-        "contao-manager-plugin": "Contao\\CalendarBundle\\ContaoManager\\Plugin"
+        "contao-manager-plugin": "Jmedia\\AddressbookBundle\\ContaoManager\\Plugin"
     }
 }
