@@ -29,7 +29,7 @@
  $GLOBALS['TL_DCA']['tl_member']['list']['label']['fields'] = array('icon','email','dateAdded');
 
  //Add about_me in palettes
- $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('email','email;{verify_legend},about_me',$GLOBALS['TL_DCA']['tl_member']['palettes']);
+ $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('email','email;{verify_legend},about_me,verified',$GLOBALS['TL_DCA']['tl_member']['palettes']);
 
  //Add "Edit Adressbook" action button
  $GLOBALS['TL_DCA']['tl_member']['list']['operations']['edit_addressbook'] = array(
@@ -45,6 +45,13 @@
 	'inputType'		=> 'textarea',
 	'eval'			=> array('mandatory'=>true, 'maxlength'=>500, 'feEditable'=>true, 'feViewable'=>true,'rte'=>'tinyMCE'),
 	'sql'			=> "varchar(255) NOT NULL default ''"
+ );
+
+ $GLOBALS['TL_DCA']['tl_member']['fields']['verified'] = array(
+	'label'			=> $GLOBALS['TL_LANG']['tl_member']['verified'],
+	'exclude'		=> true,
+	'inputType'		=> 'checkbox',
+	'sql'			=> "char(1) NOT NULL default ''"
  );
 
  class tl_member_custom extends \Backend {
