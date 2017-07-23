@@ -27,8 +27,6 @@ class ModuleFamilyVerification extends \BackendModule {
 
     protected function compile() {
 
-    	echo 'Hello';
-
     	$this->Template->test = 'Hallo';
     }
 }
