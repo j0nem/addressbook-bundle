@@ -23,7 +23,7 @@
  	'tables' => array('tl_family')
  );
  $GLOBALS['BE_MOD']['accounts']['fm_verification'] = array(
- 	'callback' => 'ModuleFamilyVerification'
+ 	'callback' => 'Jmedia\ModuleFamilyVerification'
  );
 
 /**
