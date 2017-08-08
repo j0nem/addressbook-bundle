@@ -19,7 +19,7 @@
 /**
  * Back End Modules
  */
- array_insert($GLOBALS['BE_MOD'],2, array('addressbook' => array(
+ array_insert($GLOBALS['BE_MOD'],3, array('addressbook' => array(
 	 'fm_addressbook' => array(
  		'tables' => array('tl_family')
 	 ),
