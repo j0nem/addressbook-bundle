@@ -19,12 +19,14 @@
 /**
  * Back End Modules
  */
- $GLOBALS['BE_MOD']['accounts']['fm_list'] = array(
- 	'tables' => array('tl_family')
- );
- $GLOBALS['BE_MOD']['accounts']['fm_verification'] = array(
- 	'callback' => 'Jmedia\ModuleFamilyVerification'
- );
+ array_insert($GLOBALS['BE_MOD'],2, array('addressbook' => array(
+	 'fm_addressbook' => array(
+ 		'tables' => array('tl_family')
+	 ),
+	 'fm_verification' => array(
+		 'callback' => 'Jmedia\ModuleFamilyVerification'
+	 )
+ )));
 
 /**
  * Front End Modules
