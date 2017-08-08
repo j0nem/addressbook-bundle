@@ -47,13 +47,6 @@
 	'sql'			=> "varchar(255) NOT NULL default ''"
  );
 
- $GLOBALS['TL_DCA']['tl_member']['fields']['verified'] = array(
-	'label'			=> $GLOBALS['TL_LANG']['tl_member']['verified'],
-	'exclude'		=> true,
-	'inputType'		=> 'checkbox',
-	'sql'			=> "char(1) NOT NULL default ''"
- );
-
  class tl_member_custom extends \Backend {
 
 	public function editAdressbook($row, $href, $label, $title, $icon) {

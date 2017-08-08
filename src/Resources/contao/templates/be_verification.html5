@@ -1,3 +1,33 @@
-<h2 class="sub_headline">Verifikationen</h2>
-Test
-<?= $this->test ?>
+<style>p { margin-bottom:0; } button{ padding:0 2px }</style>
+<h2 class="sub_headline" style="margin-top:10px;">Unverifizierte Mitglieder</h2>
+<div style="padding-left:18px;">Hier finden Sie alle neu registrierten Mitglieder, die noch nicht von einem Administrator verifiziert wurden.</div>
+<?php if($this->memberEntries) : ?>
+<div class="tl_listing_container list_view">
+<table class="tl_listing showColumns"><tbody>
+    <tr>
+        <th class="tl_folder_tlist">Zeitpunkt</th>
+        <th class="tl_folder_tlist">Mitglied</th>
+        <th class="tl_folder_tlist">Über mich</th>
+        <th class="tl_folder_tlist"></th>
+    </tr>
+    <?php $even = true; ?>
+    <?php foreach ($this->memberEntries as $arrEntry) : ?>
+        <tr class="<?php if($even) : ?>even<?php else : ?>odd<?php endif; ?> toggle_select hover-row">
+            <td class="tl_file_list"><?= date('d.m.Y H:i', $arrEntry['tstamp']) ?></td>
+            <td class="tl_file_list"><?= Jmedia\Family::formatName($arrEntry) ?></td>
+            <td class="tl_file_list"><?= $arrEntry['about_me'] ?></td>
+            <td class="tl_file_list">
+                <form method="post">
+                <input type="hidden" value="verify_member" name="METHOD" />
+                <input type="hidden" name="REQUEST_TOKEN" value="<?= REQUEST_TOKEN ?>" />
+                <input type="hidden" value="<?= $arrEntry['id'] ?>" name="id" />
+                <button type="submit">Verifizieren</button>
+                </form>
+            </td>
+        </tr>
+        <?php if($even) $even = false; else $even = true; ?>
+    <?php endforeach ?>
+</tbody>
+</table>
+</div>
+<?php else : ?><div style="padding:18px;">&#10003; Keine ausstehenden Registrierungen.</div><?php endif; ?>
