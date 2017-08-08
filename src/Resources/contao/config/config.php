@@ -19,7 +19,7 @@
 /**
  * Back End Modules
  */
- array_insert($GLOBALS['BE_MOD'],3, array('addressbook' => array(
+ array_insert($GLOBALS['BE_MOD'],3, array('family' => array(
 	 'fm_addressbook' => array(
  		'tables' => array('tl_family')
 	 ),
@@ -31,7 +31,7 @@
 /**
  * Front End Modules
  */
-$GLOBALS['FE_MOD']['family']['fm_list'] = 'ModuleFamilyList';
+$GLOBALS['FE_MOD']['family']['fm_list'] = 'Jmedia\ModuleFamilyList';
 
 /**
  * Hooks
