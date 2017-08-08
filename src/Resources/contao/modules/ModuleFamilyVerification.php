@@ -30,18 +30,28 @@ class ModuleFamilyVerification extends \BackendModule {
 		//apply changes on POST request
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if($this->Input->post('METHOD') == 'verify_member') {
-				$arrData = $this->Database->prepare("SELECT groups FROM tl_member WHERE id = ? LIMIT 1")->execute($this->Input->post('id'))->fetchAssoc();
 
+				//get current groups of member
+				$data = $this->Database->prepare("SELECT groups FROM tl_member WHERE id = ?")->execute($this->Input->post('id'));
+				while($row = $data->fetchAssoc()) {
+					$arrData = $row;
+				}
 				if($arrData) {
-					$arrGroups = unserialize($arrData[0]['groups']);
+					$arrGroups = unserialize($arrData['groups']);
 				}
 				else  {
 					$arrGroups = array();
 				}
 
-				//TODO: Add selector for group "verified" in backend
-				$arrGroups[] = 3;
-				$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $this->Input->post('id'));
+				//get group id of group "verified" and add member to group
+				$data = $this->Database->prepare("SELECT id FROM tl_member_group WHERE family_group_type = ?")->execute('verified');
+				while($row = $data->fetchAssoc()) {
+					$intGroupId = $row['id'];
+				}
+				if($arrData) {
+					$arrGroups[] = $intGroupId;
+					$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $this->Input->post('id'));
+				}
 			}
 		}
 
