@@ -115,6 +115,8 @@ class ModuleFamilyVerification extends \BackendModule {
 			unset($arrGroups[array_search($this->intUnverifiedGroup,$arrGroups)]);
 			$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $intId);
 		}
+		//publish addressbook entry
+		$this->Database->prepare("UPDATE tl_family SET visible = '1' WHERE account_id = ?")->execute($intId);
 	}
 
 	protected function sendInfoMail($intId) {
