@@ -1,4 +1,18 @@
 <style>p { margin-bottom:0; } button{ padding:0 2px }</style>
+<?php if($this->arrStatusMessages) : ?>
+    <div style="background-color:#dc4444;padding:10px;color:#fff;margin:15px;">
+        <p style="margin-bottom:1em;">Folgende Probleme müssen zuerst gelöst werden:</p>
+        <ul>
+        <?php if($this->arrStatusMessages['no_unverified_group']) : ?>
+            <li>Es wurde keine Mitgliedergruppe für "Nicht-verifizierte Mitglieder" gefunden</li>
+        <?php endif; ?>
+        <?php if($this->arrStatusMessages['no_verified_group']) : ?>
+            <li>Es wurde keine Mitgliedergruppe für "Verifizierte Mitglieder" gefunden</li>
+        <?php endif; ?>
+        </ul>
+    </div>
+<?php endif; ?>
+
 <h2 class="sub_headline" style="margin-top:10px;">Unverifizierte Mitglieder</h2>
 <div style="padding-left:18px;">Hier finden Sie alle neu registrierten Mitglieder, die noch nicht von einem Administrator verifiziert wurden.</div>
 <?php if($this->memberEntries) : ?>
