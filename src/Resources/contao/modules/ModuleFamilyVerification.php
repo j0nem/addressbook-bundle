@@ -41,6 +41,7 @@ class ModuleFamilyVerification extends \BackendModule {
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			if($this->Input->post('METHOD') == 'verify_member') {
 				$this->verifyMember($this->Input->post('id'));
+				$this->sendInfoMail($this->Input->post('id'));
 			}
 		}
 
@@ -114,6 +115,23 @@ class ModuleFamilyVerification extends \BackendModule {
 			unset($arrGroups[array_search($this->intUnverifiedGroup,$arrGroups)]);
 			$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $intId);
 		}
+	}
+
+	protected function sendInfoMail($intId) {
+		$objMail = new \Email();
+		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
+		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
+		$objMail->subject = 'Ihr Account wurde verifiziert';
+
+		$user = $this->Database->prepare("SELECT m.email,f.firstname,f.lastname FROM tl_member m JOIN tl_family f ON f.account_id = m.id WHERE m.id = ?")->execute($intId);
+		$arrUser = $user->fetchAssoc();
+
+		$objMail->html = '<p>Hallo '.$arrUser['firstname'].' '.$arrUser['lastname'].',</p>
+<p>Ihr Account bei '.$GLOBALS['TL_CONFIG']['websiteTitle'].' wurde erfolgreich von einem Administrator verifiziert.<br />
+Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. Gerne können Sie sich einloggen und beim Aufbau des Adressbuchs mithelfen:</p>
+<p><a href="http://'.\Environment::get('httpHost').'">Zum Login</a></p><p>Vielen Dank!</p>';
+
+		$objMail->sendTo($arrUser['email']);
 	}
 
 	/*
