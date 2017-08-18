@@ -41,7 +41,7 @@
 		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
 		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . $GLOBALS['TL_CONFIG']['websiteTitle'];
 
-		$addressEntry = Family\Family::getAddressEntry($memberModel->id);
+		$addressEntry = Family::getAddressEntry($memberModel->id);
 
 		$objMail->html = '<h1>'.$memberModel->email.' hat sich neu registriert</h1>
 Der Benutzer hat folgende Daten angegeben:<br />
