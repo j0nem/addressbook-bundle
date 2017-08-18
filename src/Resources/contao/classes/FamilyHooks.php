@@ -35,7 +35,7 @@
 		return $delSuccess && $insSuccess;
 	}
 
-	public function sendVerificationEmail(MemberModel $memberModel, ModuleRegistration $registrationModule) {
+	public function sendVerificationEmail(\MemberModel $memberModel, \ModuleRegistration $registrationModule) {
 		$objMail = new \Email();
 		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
 		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
