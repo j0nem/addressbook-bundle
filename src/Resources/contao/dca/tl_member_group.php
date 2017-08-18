@@ -26,6 +26,6 @@
 	'inputType'		=> 'select',
 	'options'		=> array('verified','unverified'),
 	'reference'		=> &$GLOBALS['TL_LANG']['tl_member_group']['family_group_type_options'],
-	'eval'			=> array('includeBlankOption' => true, 'tl_class'=>'w50','feEditable'=>true, 'feViewable'=>true),
+	'eval'			=> array('includeBlankOption' => true, 'unique'=>true, 'tl_class'=>'w50','feEditable'=>true, 'feViewable'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
- );
+);
