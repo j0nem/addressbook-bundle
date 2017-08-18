@@ -36,6 +36,8 @@
 	}
 
 	public function sendVerificationEmail(\MemberModel $memberModel, \ModuleRegistration $registrationModule) {
+		print_r(\Environment::get('httpHost'));
+
 		$objMail = new \Email();
 		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
 		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
@@ -43,15 +45,16 @@
 
 		$addressEntry = Family::getAddressEntry($memberModel->id);
 
-		$objMail->html = '<h1>'.$memberModel->email.' hat sich neu registriert</h1>
-Der Benutzer hat folgende Daten angegeben:<br />
-Name: '.$addressEntry['firstname'].' '.$addressEntry['lastname'].'<br />
+		$objMail->html = '<h1>'.$addressEntry['firstname'].' '.$addressEntry['lastname'].' hat sich neu registriert</h1>
+Der Benutzer hat folgende Daten angegeben:<br /><br />
+E-Mail: '.$memberModel->email.'<br />
 Geburtstdatum: '.date('d.m.Y',$addressEntry['dateOfBirth']).'<br />
-Familienzugehörigkeit: '.$addressEntry['about_me'].'<br /><br />
-<a href="'.\Environment::httpHost.'/contao?do=fm_verification">Mitglied bestätigen</a>';
+Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
+<a href="http://'.\Environment::get('httpHost').'/contao?do=fm_verification">Mitglied bestätigen</a>';
 
 		//Send emails to users with activated "notifications" checkbox
-		$users = $this->Database->query("SELECT email FROM tl_user WHERE family_notifications = '1'");
+		$db = \Database::getInstance();
+		$users = $db->query("SELECT email FROM tl_user WHERE family_notifications = '1'");
 		while($user = $users->fetchAssoc()) {
 			$objMail->sendTo($user['email']);
 		}
