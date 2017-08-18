@@ -36,8 +36,6 @@
 	}
 
 	public function sendVerificationEmail(\MemberModel $memberModel, \ModuleRegistration $registrationModule) {
-		print_r(\Environment::get('httpHost'));
-
 		$objMail = new \Email();
 		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
 		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
@@ -59,5 +57,4 @@ Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 			$objMail->sendTo($user['email']);
 		}
 	}
-
  }
