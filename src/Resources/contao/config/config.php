@@ -36,5 +36,5 @@ $GLOBALS['FE_MOD']['family']['fm_list'] = 'Jmedia\ModuleFamilyList';
 /**
  * Hooks
  */
-$GLOBALS['TL_HOOKS']['createNewUser'][] = array('FamilyHooks','moveDataAfterRegistration');
-$GLOBALS['TL_HOOKS']['activateAccount'][] = array('FamilyHooks','sendVerificationEmail');
+$GLOBALS['TL_HOOKS']['createNewUser'][] = array('Jmedia\FamilyHooks','moveDataAfterRegistration');
+$GLOBALS['TL_HOOKS']['activateAccount'][] = array('Jmedia\FamilyHooks','sendVerificationEmail');
