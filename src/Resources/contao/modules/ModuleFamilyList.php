@@ -19,7 +19,6 @@
  namespace Jmedia;
 
  use Patchwork\Utf8;
- use Jmedia\Family;
 
  class ModuleFamilyList extends \Module
 {
