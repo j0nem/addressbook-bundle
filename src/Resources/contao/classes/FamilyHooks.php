@@ -18,6 +18,8 @@
 
  namespace Jmedia;
 
+ use Jmedia\Family;
+
  class FamilyHooks extends \System {
 
 	/**
