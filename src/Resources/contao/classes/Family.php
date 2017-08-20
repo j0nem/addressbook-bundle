@@ -81,7 +81,7 @@
 
 	 public static function getAddressEntryOfMember($id) {
 		foreach(static::fullList() as $arrEntry) {
-			if($entry['account_id'] == $id) return $arrEntry;
+			if($arrEntry['account_id'] == $id) return $arrEntry;
 		}
 	 }
 
