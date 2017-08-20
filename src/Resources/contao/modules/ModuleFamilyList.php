@@ -19,6 +19,7 @@
  namespace Jmedia;
 
  use Patchwork\Utf8;
+ use Jmedia\Family;
 
  class ModuleFamilyList extends \Module
 {
@@ -74,7 +75,33 @@
 		//DETAIL
 		if($this->Input->get('id') != '' && $arrList[$this->Input->get('id')]) {
 			$this->Template->mode = 'detail';
-			$this->Template->activeRecord = $arrList[$this->Input->get('id')];
+
+			$arrActiveRecord = $arrList[$this->Input->get('id')];
+			$arrActiveRecord['birthday'] = Family::formatDate($arrActiveRecord,false);
+
+			if($arrActiveRecord['city']) {
+				$arrActiveRecord['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($arrActiveRecord,true)).'" target="_blank">'.Family::formatResidence($arrActiveRecord).'</a>';
+			}
+			if($acc = Family::getMemberAccount($arrActiveRecord['id'])) {
+				$arrActiveRecord['email'] = '<a href="'.$acc->email.'">'.$acc->email.'</a>';
+			}
+			if($arrActiveRecord['father']) {
+				$arrActiveRecord['father_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['father'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['father'])).'</a>';
+			}
+			if($arrActiveRecord['mother']) {
+				$arrActiveRecord['mother_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['mother'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['mother'])).'</a>';
+			}
+			if($arrActiveRecord['partner']) {
+				$arrActiveRecord['partner_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['partner'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['partner'])).'</a>';
+			}
+			if($ch = Family::getChildren($arrActiveRecord['id'])) {
+				foreach($ch as $chId) {
+					$arrActiveRecord['children'][$chId]['link'] = '<a href="'.$this->addToUrl('id=' . $chId, ['_locale']).'">'.Family::formatName(Family::getAddressEntry($chId)).'</a>';
+				}
+			}
+
+			$this->Template->activeRecord = $arrActiveRecord;
+			$this->Template->backHref = $this->addToUrl('id=',['_locale','id']);
 
 			global $objPage;
 			$objPage->pageTitle = Family::formatName($arrList[$this->Input->get('id')]);
@@ -87,13 +114,17 @@
 			foreach($arrList as $elem) {
 				$elem['name_string'] = Family::formatName($elem,true);
 				$elem['date_string'] = Family::formatDate($elem);
-				$elem['detail_href'] = $this->addToUrl('id=' . $elem['id'],['_locale']);
+				$elem['detail_link'] = '<a href="'.$this->addToUrl('id=' . $elem['id'],['_locale']).'">'.$elem['name_string'].'</a>';
+
+				if($elem['city']) {
+					$elem['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($elem,true)).'" target="_blank">'.Family::formatResidence($elem).'</a>';
+				}
+
 				$arrFamily[$elem['id']] = $elem;
 			}
 
 			$this->Template->arrFamily = $arrFamily;
 		}
-
 		return true;
 	}
 }
