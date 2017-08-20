@@ -83,7 +83,7 @@
 				$arrActiveRecord['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($arrActiveRecord,true)).'" target="_blank">'.Family::formatResidence($arrActiveRecord).'</a>';
 			}
 			if($acc = Family::getMemberAccount($arrActiveRecord['id'])) {
-				$arrActiveRecord['email'] = '<a href="'.$acc->email.'">'.$acc->email.'</a>';
+				$arrActiveRecord['email'] = '<a href="mailto:'.$acc->email.'">'.$acc->email.'</a>';
 			}
 			if($arrActiveRecord['father']) {
 				$arrActiveRecord['father_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['father'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['father'])).'</a>';
