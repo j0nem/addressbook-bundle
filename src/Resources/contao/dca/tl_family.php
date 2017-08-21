@@ -299,7 +299,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'reference'				  => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options'],
 			'eval'                    => array('tl_class'=>'w50'),
 			'foreignKey'			  => 'tl_family.firstname',
-			'sql'                     => "int(10) NOT NULL default '0'"
+			'sql'                     => "varchar(255) NOT NULL default '0'"
 		),
 		'visible' => array
 		(
