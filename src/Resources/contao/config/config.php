@@ -34,6 +34,7 @@ $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css';
  * Front End Modules
  */
 $GLOBALS['FE_MOD']['family']['fm_list'] = 'Jmedia\ModuleFamilyList';
+$GLOBALS['FE_MOD']['family']['fm_edit'] = 'Jmedia\ModuleFamilyEdit';
 
 
 /**

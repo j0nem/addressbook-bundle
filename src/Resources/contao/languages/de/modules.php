@@ -16,8 +16,10 @@
  * @license GPL-3.0+
  */
 
+$GLOBALS['TL_LANG']['MOD']['family'] = 'Familienadressbuch';
 $GLOBALS['TL_LANG']['MOD']['fm_addressbook'] = array('Adressbuch','Hier können Sie die Daten aller Mitglieder verwalten');
 $GLOBALS['TL_LANG']['MOD']['fm_verification'] = array('Verifikation','Hier können Sie neue Mitglieder, Anderungsvorschläge und neu hinzugefügte Adressbucheinträge überprüfen und freischalten');
 
+$GLOBALS['TL_LANG']['FMD']['family'] = 'Familienadressbuch';
 $GLOBALS['TL_LANG']['FMD']['fm_list'] = array('Adressbuch-Liste','Zeigt eine Auflistung bzw. einen Detail-View der Adressbucheinträge an.');
-$GLOBALS['TL_LANG']['MOD']['family'] = 'Familienadressbuch';
+$GLOBALS['TL_LANG']['FMD']['fm_edit'] = array('Adressbucheintrag bearbeiten','Ermöglicht dem Mitglied, seinen eigenen Adressbucheintrag inkl. Account-Details (E-Mail und Passwort) zu ändern.');

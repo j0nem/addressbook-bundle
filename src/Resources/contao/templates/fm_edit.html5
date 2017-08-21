@@ -1,0 +1,22 @@
+<section class="fm_edit">
+
+    <form action="addressbook_edit" method="POST">
+        <?php foreach ($this->data as $clm => $field) : ?>
+            <label for="<?= $clm ?>"><?= $field['label'] ?></label>
+            <?php if($field['type'] == 'textarea') : ?>
+                <textarea name="<?= $clm ?>"><?= $field['value'] ?></textarea>
+            <?php elseif($field['type'] == 'select') : ?>
+                <select name="<?= $clm ?>">
+                    <?php foreach($field['options'] as $alias => $name) : ?>
+                        <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
+                    <?php endforeach; ?>
+                </select>
+            <?php else : ?>
+                <input type="<?= $field['type'] ?>" name="<?= $clm ?>" value="<?= $field['value'] ?>"></input>
+            <?php endif; ?>
+            <br />
+        <?php endforeach; ?>
+        <button type="submit">Speichern</button>
+    </form>
+
+</section>
