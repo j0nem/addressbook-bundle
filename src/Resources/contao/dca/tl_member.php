@@ -43,7 +43,7 @@
 	'label'			=> $GLOBALS['TL_LANG']['tl_member']['about_me'],
 	'exclude'		=> true,
 	'inputType'		=> 'textarea',
-	'eval'			=> array('mandatory'=>true, 'maxlength'=>500, 'feEditable'=>true, 'feViewable'=>true,'rte'=>'tinyMCE'),
+	'eval'			=> array('mandatory'=>true, 'maxlength'=>500, 'feEditable'=>true, 'feViewable'=>true),
 	'sql'			=> "varchar(255) NOT NULL default ''"
  );
 
