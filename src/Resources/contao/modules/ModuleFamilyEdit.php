@@ -1,5 +1,8 @@
 <?php
 
+//TODO: Add save routine
+//TODO: Add Chosen to family select fields & country select field
+
 /**
  * Contao Open Source CMS
  *
@@ -30,10 +33,37 @@
 	 protected $strTemplate = 'fm_edit';
 
 	 /**
-	 * Not editable tl_family fields
+	 * Setup displayed fields and sorting/grouping
 	 * @var array
 	 */
-	 protected $arrNotEditableFields = [ 'id','tstamp','account_id','visible' ];
+	 protected $arrFields = [
+		 'personal_legend' => [
+			 'firstname' => [],
+			 'lastname' => [],
+			 'nameOfBirth' => [],
+			 'gender' => [],
+			 'dateOfBirth' => [],
+			 'about_me' => []
+		],
+		 'address_legend' => [
+			 'street' => [],
+			 'postal' => [],
+			 'city' => [],
+			 'country' => []
+		],
+		 'contact_legend' => [
+			 'email' => [],
+			 'phone' => [],
+			 'mobile' => [],
+			 'fax'  => []
+		],
+		 'family_legend' => [
+			 'mother' => [],
+			 'father' => [],
+			 'partner' => [],
+			 'partner_relation' => []
+		]
+	 ];
 
 	/**
 	* Display a wildcard in the back end
@@ -68,12 +98,25 @@
 		if(!FE_USER_LOGGED_IN) {
 			return false;
 		}
-		$this->import('FrontendUser','User');
 		$this->import('Database');
+		$this->import('FrontendUser','User');
 		\System::loadLanguageFile('tl_family');
 		\System::loadLanguageFile('tl_member');
 
+		//save new data
+		if($_SERVER['REQUEST_METHOD'] == 'POST') {
+			$res = $this->saveData();
+			if(is_array($res)) {
+				$this->Template->error = $res['error'];
+			}
+			else {
+				$this->Template->success = true;
+			}
+		}
+
+		//fetch existing data
 		$this->Template->data = $this->getFormData();
+		$this->Template->legendLabels = $this->getLegendLabels();
 	}
 
 	/**
@@ -82,14 +125,22 @@
 	* @return array
 	*/
 	protected function getFormData() {
+		//copy field structure into $arrData
+		$arrData = $this->arrFields;
+
+		//reload tl_member data
+		$arrMember = $this->Database->prepare("SELECT about_me,email FROM tl_member WHERE id = ?")->execute($this->User->id)->fetchAssoc();
+
 		//add tl_member data
-		$arrData['email'] = [ 'value' => $this->User->email, 'type' => 'email', 'label' => $this->getLabel('email') ];
-		$arrData['about_me'] = [ 'value' => $this->User->about_me, 'type' => 'textarea', 'label' => $this->getLabel('about_me') ];
+		$arrData[$this->getFieldGroup('email')]['email'] = [ 'value' => $arrMember['email'], 'type' => 'email', 'label' => $this->getLabel('email') ];
+		$arrData[$this->getFieldGroup('about_me')]['about_me'] = [ 'value' => $arrMember['about_me'], 'type' => 'textarea', 'label' => $this->getLabel('about_me') ];
 
 		//add tl_family data
 		$arrFamilyEntry = Family::getAddressEntryOfMember($this->User->id);
+
+		//prepare data
 		foreach ($arrFamilyEntry as $clm => $val) {
-			if(!in_array($clm,$this->arrNotEditableFields)) {
+			if($this->getFieldGroup($clm)) {
 				//=== DATE OF BIRTH ===
 				if($clm == 'dateOfBirth') {
 					$val = date('d.m.Y',$val);
@@ -111,8 +162,8 @@
 				else {
 					$strType = 'text';
 				}
-				$arrData[$clm] = [ 'value' =>$val, 'type' => $strType, 'label' => $this->getLabel($clm) ];
-				$arrData[$clm]['options'] = $arrOptions;
+				$arrData[$this->getFieldGroup($clm)][$clm] = [ 'value' =>$val, 'type' => $strType, 'label' => $this->getLabel($clm) ];
+				$arrData[$this->getFieldGroup($clm)][$clm]['options'] = $arrOptions;
 			}
 		}
 		return $arrData;
@@ -159,7 +210,87 @@
 	}
 
 	/**
-	* Get Label from tl_family or tl_family language array
+	* Save form data
+	*
+	* @return mixed
+	*/
+	protected function saveData() {
+		//check dateOfBirth
+		if($this->Input->post('dateOfBirth')) {
+			$time = strtotime($this->Input->post('dateOfBirth'));
+			if($time == false || $time > time()){
+				return [ 'error' => 'dateOfBirth' ];
+			}
+		}
+		//check postal
+		if($this->Input->post('postal') && !is_numeric($this->Input->post('postal'))) {
+			return [ 'error' => 'postal' ];
+		}
+		//check phone/fax numbers
+		$arrPhones = [ 'phone','mobile','fax' ];
+		foreach($arrPhones as $elem) {
+			if($this->Input->post($elem) && !preg_match('/^\+?([\d\s]+)$/', $this->Input->post($elem))){
+				return [ 'error' => $elem];
+			}
+		}
+		//check email
+		if(!preg_match('/^\S+@\S+\.\w{2,}$/',$this->Input->post('email'))) {
+			return [ 'error' => 'email' ];
+		}
+
+		//update tl_member
+		$this->Database->prepare("UPDATE tl_member SET about_me = ?,email = ? WHERE id = ?")
+			->execute($this->Input->post('about_me'),$this->Input->post('email'),$this->User->id);
+
+		//trigger save_callback on tl_member.email
+		$this->loadDataContainer('tl_member');
+		$varValue = $this->Input->post('email');
+		if (is_array($GLOBALS['TL_DCA']['tl_member']['fields']['email']['save_callback'])) {
+			foreach ($GLOBALS['TL_DCA']['tl_member']['fields']['email']['save_callback'] as $callback) {
+				if (is_array($callback)) {
+					$this->import($callback[0]);
+					$varValue = $this->{$callback[0]}->{$callback[1]}($varValue, $this->User, $this);
+				}
+				elseif (is_callable($callback)) {
+					$varValue = $callback($varValue, $this->User, $this);
+				}
+			}
+		}
+
+		//update tl_family
+		$arrFields = [];
+		foreach($_POST as $key => $value) {
+			if($this->getFieldGroup($key) && $key != 'email' && $key != 'about_me' && $key != 'dateOfBirth') {
+				$arrFields[$key] = $this->Input->post($key);
+			}
+			elseif($this->getFieldGroup($key) && $key == 'dateOfBirth') {
+				$arrFields[$key] = strtotime($this->Input->post($key));
+			}
+		}
+		$this->Database->prepare("UPDATE tl_family %s WHERE account_id = ?")
+			->set($arrFields)->execute($this->User->id);
+		return 'success';
+	}
+
+	/**
+	* Get group name of field
+	*
+	* @param $strClm
+	* @return string
+	*/
+	protected function getFieldGroup($strClm) {
+		foreach($this->arrFields as $strGroup => $arrFields) {
+			foreach($arrFields as $strField => $stuff) {
+				if($strField == $strClm) {
+					return $strGroup;
+				}
+			}
+		}
+		return false;
+	}
+
+	/**
+	* Get field label from tl_family or tl_family language array
 	*
 	* @param $strClm
 	* @return string
@@ -171,6 +302,18 @@
 		else {
 			return $GLOBALS['TL_LANG']['tl_family'][$strClm][0];
 		}
+	}
+
+	/**
+	* Get labels for group headings
+	*
+	* @return array
+	*/
+	protected function getLegendLabels() {
+		foreach($this->arrFields as $strGroup => $fields) {
+			$arrLabels[$strGroup] = $GLOBALS['TL_LANG']['tl_family'][$strGroup];
+		}
+		return $arrLabels;
 	}
 
 }
