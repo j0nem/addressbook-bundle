@@ -34,7 +34,7 @@
  //Add "Edit Adressbook" action button
  $GLOBALS['TL_DCA']['tl_member']['list']['operations']['edit_addressbook'] = array(
 	'label'               => &$GLOBALS['TL_LANG']['tl_member']['edit_account'],
-	'href'                => 'do=family_list',
+	'href'                => 'do=fm_addressbook',
 	'icon'                => 'bundles/jmediaaddressbook/phone.svg',
 	'button_callback'     => array('tl_member_custom', 'editAdressbook')
  );
@@ -51,7 +51,7 @@
 
 	public function editAdressbook($row, $href, $label, $title, $icon) {
 		$this->import('BackendUser','User');
-		if (!$this->User->hasAccess('family_list', 'modules')) {
+		if (!$this->User->hasAccess('fm_addressbook', 'modules')) {
 			return '';
 		}
 
