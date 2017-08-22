@@ -1,8 +1,5 @@
 <?php
 
-//TODO: Add save routine
-//TODO: Add Chosen to family select fields & country select field
-
 /**
  * Contao Open Source CMS
  *
