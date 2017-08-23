@@ -1,5 +1,8 @@
 <?php
 
+//TODO: Add Chosen to family select fields & country select field
+//TODO: Add edit link in list module, if it is my profile
+
 /**
  * Contao Open Source CMS
  *
@@ -137,6 +140,8 @@
 
 		//prepare data
 		foreach ($arrFamilyEntry as $clm => $val) {
+			$arrOptions = [];
+			$strClass = '';
 			if($this->getFieldGroup($clm)) {
 				//=== DATE OF BIRTH ===
 				if($clm == 'dateOfBirth') {
@@ -154,6 +159,10 @@
 				elseif(in_array($clm,['gender','country','mother','father','partner','partner_relation'])) {
 					$strType = 'select';
 					$arrOptions = $this->getSelectOptions($clm);
+					//add chosen to big select fields
+					if(count($arrOptions) > 3) {
+						$strClass = 'chosen';
+					}
 				}
 				//=== ALL OTHER FIELDS ===
 				else {
@@ -161,6 +170,7 @@
 				}
 				$arrData[$this->getFieldGroup($clm)][$clm] = [ 'value' =>$val, 'type' => $strType, 'label' => $this->getLabel($clm) ];
 				$arrData[$this->getFieldGroup($clm)][$clm]['options'] = $arrOptions;
+				$arrData[$this->getFieldGroup($clm)][$clm]['class'] = $strClass;
 			}
 		}
 		return $arrData;

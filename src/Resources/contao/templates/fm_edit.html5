@@ -1,3 +1,13 @@
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jmediaaddressbook/chosen.jquery.min.js'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/chosen.css'; ?>
+<script>
+    $(document).ready(function(){
+        $('.chosen').chosen({
+            'width': '21%',
+            'no_results_text': 'Keinen Eintrag gefunden'
+        });
+    });
+</script>
 <section class="fm_edit">
 <?php if($this->success) : ?>
     <div class="success-box"><p>Daten wurden erfolgreich gespeichert.</p></div>
@@ -15,7 +25,7 @@
                 <?php if($field['type'] == 'textarea') : ?>
                     <textarea name="<?= $clm ?>"><?= $field['value'] ?></textarea>
                 <?php elseif($field['type'] == 'select') : ?>
-                    <select name="<?= $clm ?>">
+                    <select name="<?= $clm ?>"<?php if($field['class']) : ?> class="<?= $field['class'] ?>"<?php endif; ?>>
                         <?php foreach($field['options'] as $alias => $name) : ?>
                             <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
                         <?php endforeach; ?>
