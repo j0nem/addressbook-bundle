@@ -8,8 +8,8 @@
         <?php foreach($this->data as $strGroup => $arrFields) : ?>
             <h2><?= $this->legendLabels[$strGroup] ?></h2>
             <?php foreach ($arrFields as $clm => $field) : ?>
-                <?php if($this->error == $clm) : ?>
-                    <p>Hier ist ein Fehler aufgetreten.</p>
+                <?php if($this->error['error'] == $clm) : ?>
+                    <div class="ce_text error-box"><p><?= $this->error['label'] ?></p></div>
                 <?php endif; ?>
                 <label for="<?= $clm ?>"><?= $field['label'] ?></label>
                 <?php if($field['type'] == 'textarea') : ?>

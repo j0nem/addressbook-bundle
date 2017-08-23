@@ -104,7 +104,7 @@
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			$res = $this->saveData();
 			if(is_array($res)) {
-				$this->Template->error = $res['error'];
+				$this->Template->error = $res;
 			}
 			else {
 				$this->Template->success = true;
@@ -214,25 +214,32 @@
 	protected function saveData() {
 		//check dateOfBirth
 		if($this->Input->post('dateOfBirth')) {
-			$time = strtotime($this->Input->post('dateOfBirth'));
-			if($time == false || $time > time()){
-				return [ 'error' => 'dateOfBirth' ];
+			$day = substr($this->Input->post('dateOfBirth'),0,2);
+			$month = substr($this->Input->post('dateOfBirth'),3,2);
+			$year = substr($this->Input->post('dateOfBirth'),6,4);
+			$blnValid = checkdate($month,$day,$year);
+			$intTime = strtotime($year.'-'.$month.'-'.$day);
+			if(!$blnValid || $intTime > time()) {
+				return [ 'error' => 'dateOfBirth', 'label' => $GLOBALS['TL_LANG']['Family']['error']['dateOfBirth'] ];
+			}
+			else {
+				$this->Input->setPost('dateOfBirth',$intTime);
 			}
 		}
 		//check postal
 		if($this->Input->post('postal') && !is_numeric($this->Input->post('postal'))) {
-			return [ 'error' => 'postal' ];
+			return [ 'error' => 'postal', 'label' => $GLOBALS['TL_LANG']['Family']['error']['postal'] ];
 		}
 		//check phone/fax numbers
 		$arrPhones = [ 'phone','mobile','fax' ];
 		foreach($arrPhones as $elem) {
 			if($this->Input->post($elem) && !preg_match('/^\+?([\d\s]+)$/', $this->Input->post($elem))){
-				return [ 'error' => $elem];
+				return [ 'error' => $elem, 'label' => $GLOBALS['TL_LANG']['Family']['error']['phone'] ];
 			}
 		}
 		//check email
 		if(!preg_match('/^\S+@\S+\.\w{2,}$/',$this->Input->post('email'))) {
-			return [ 'error' => 'email' ];
+			return [ 'error' => 'email', 'label' => $GLOBALS['TL_LANG']['Family']['error']['email'] ];
 		}
 
 		//update tl_member
@@ -257,11 +264,8 @@
 		//update tl_family
 		$arrFields = [];
 		foreach($_POST as $key => $value) {
-			if($this->getFieldGroup($key) && $key != 'email' && $key != 'about_me' && $key != 'dateOfBirth') {
+			if($this->getFieldGroup($key) && $key != 'email' && $key != 'about_me') {
 				$arrFields[$key] = $this->Input->post($key);
-			}
-			elseif($this->getFieldGroup($key) && $key == 'dateOfBirth') {
-				$arrFields[$key] = strtotime($this->Input->post($key));
 			}
 		}
 		$this->Database->prepare("UPDATE tl_family %s WHERE account_id = ?")
