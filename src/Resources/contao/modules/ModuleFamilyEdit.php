@@ -1,8 +1,5 @@
 <?php
 
-//TODO: Add Chosen to family select fields & country select field
-//TODO: Add edit link in list module, if it is my profile
-
 /**
  * Contao Open Source CMS
  *
