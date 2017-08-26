@@ -309,6 +309,14 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'inputType'               => 'checkbox',
 			'sql'                     => "char(1) NOT NULL default ''"
 		),
+		'completed' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['completed'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'sql'                     => "char(1) NOT NULL default ''"
+		),
 	)
 );
 
