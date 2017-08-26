@@ -42,3 +42,4 @@ $GLOBALS['FE_MOD']['family']['fm_edit'] = 'Jmedia\ModuleFamilyEdit';
  */
 $GLOBALS['TL_HOOKS']['createNewUser'][] = array('Jmedia\FamilyHooks','moveDataAfterRegistration');
 $GLOBALS['TL_HOOKS']['activateAccount'][] = array('Jmedia\FamilyHooks','sendVerificationEmail');
+$GLOBALS['TL_HOOKS']['postLogin'][] = array('Jmedia\FamilyHooks', 'redirectIfProfileNotCompleted');

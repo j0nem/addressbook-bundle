@@ -57,4 +57,13 @@ Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 			$objMail->sendTo($user['email']);
 		}
 	}
+
+	public function redirectIfProfileNotCompleted(\User $objUser) {
+		if ($objUser instanceof \FrontendUser) {
+			$arrEntry = Family::getAddressEntryOfMember($objUser->id);
+			if($arrEntry && $arrEntry['completed'] != 1) {
+				\Controller::redirect('mein-eintrag');
+			}
+		}
+	}
  }
