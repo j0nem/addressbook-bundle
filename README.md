@@ -30,12 +30,9 @@ class AppKernel extends Kernel
 Run the contao install tool and update the database.
 
 # Setup
-1. Add two member groups with the group type "verified" and "unverified"
-
-2. (optionally) Modify your user registration module, so that new members are automatically member of the group "unverified"
+Follow the steps in the backend module "setup wizard".
 
 # Notice
 The repository is designed to work for [a specific project](https://familienadressbuch.de).
 
-There is no "stable" version yet.
-
+There is no stable version yet.
