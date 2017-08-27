@@ -1,4 +1,4 @@
-<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/fm_verification.css' ?>
+<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css' ?>
 
 <h2 class="sub_headline">Was ist das?</h2>
 <div class="hint">Hier können Sie sehen, ob alle notwendigen Schritte zur Einrichtung des Familienadressbuch-Moduls vorgenommen wurden und erhalten Hinweise, was noch zu tun ist.</div>

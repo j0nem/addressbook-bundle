@@ -1,3 +1,33 @@
-#tl_navigation .group-family {
-    background: url(menu_icon.svg) 3px 2px no-repeat;
+p {
+    margin-bottom:0;
+}
+button {
+    padding:0 2px
+}
+
+div.hint  {
+    padding-left:18px;
+}
+
+h2.sub_headline {
+    margin-top:10px;
+}
+
+div.problem {
+    background-color:#dc4444;
+    padding:10px;
+    color:#fff;
+    margin:15px;
+}
+
+div.problem p {
+    margin-bottom:1em;
+}
+
+div.okay{
+    padding: 3px 0px 3px 22px;
+    margin-left: 20px;
+    margin-top: 10px;
+    color: #589b0e;
+    background: url(../../system/themes/flexible/icons/ok.svg) no-repeat left center;
 }

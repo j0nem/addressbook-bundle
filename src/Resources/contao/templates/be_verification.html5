@@ -1,4 +1,4 @@
-<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/fm_verification.css' ?>
+<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css' ?>
 <?php if($this->arrStatusMessages) : ?>
     <div class="problem">
         <p>Folgende Probleme müssen zuerst gelöst werden:</p>

@@ -16,7 +16,7 @@
  * @license GPL-3.0+
  */
 
-$GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css';
+$GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/menu.css';
 
 /**
  * Back End Modules
