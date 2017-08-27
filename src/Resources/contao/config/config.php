@@ -27,7 +27,10 @@ $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css';
 	 ),
 	 'fm_verification' => array(
 		 'callback' => 'Jmedia\ModuleFamilyVerification'
-	 )
+	 ),
+	 'fm_setup' => array(
+		'callback' => 'Jmedia\ModuleFamilySetup'
+	)
  )));
 
 /**
