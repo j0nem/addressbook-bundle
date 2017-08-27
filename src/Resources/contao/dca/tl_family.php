@@ -111,7 +111,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array(),
-		'default'                     => '{personal_legend},firstname,lastname,nameOfBirth,gender,dateOfBirth;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner;{visible_legend},visible'
+		'default'                     => '{personal_legend},firstname,lastname,nameOfBirth,gender,dateOfBirth;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible'
 	),
 
 	// Fields
