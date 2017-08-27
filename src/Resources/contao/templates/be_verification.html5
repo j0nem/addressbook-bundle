@@ -4,10 +4,10 @@
         <p>Folgende Probleme müssen zuerst gelöst werden:</p>
         <ul>
         <?php if($this->arrStatusMessages['no_unverified_group']) : ?>
-            <li>Es wurde keine Mitgliedergruppe für "Nicht-verifizierte Mitglieder" gefunden</li>
+            <li>Es wurde keine Mitgliedergruppe für "Nicht-verifizierte Mitglieder" gefunden! Bitte rufen Sie den Einrichtungsassistenten auf.</li>
         <?php endif; ?>
         <?php if($this->arrStatusMessages['no_verified_group']) : ?>
-            <li>Es wurde keine Mitgliedergruppe für "Verifizierte Mitglieder" gefunden</li>
+            <li>Es wurde keine Mitgliedergruppe für "Verifizierte Mitglieder" gefunden! Bitte rufen Sie den Einrichtungsassistenten auf.</li>
         <?php endif; ?>
         </ul>
     </div>
