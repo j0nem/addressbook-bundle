@@ -23,7 +23,7 @@ namespace Jmedia;
 
 class ModuleFamilySetup extends \BackendModule {
 
-	protected $strTemplate = 'be_fmsetup';
+	protected $strTemplate = 'be_setupwizard';
 
 	/**
 	* Renders the backend module
@@ -118,7 +118,7 @@ class ModuleFamilySetup extends \BackendModule {
 		while($arrPage = $data->fetchAssoc()) {
 			$arrPages[$arrPage['id']] = $arrPage;
 			if($arrPage['type'] == 'root' && $arrPage['family_jumpTo'] != 0) {
-				$arrId = $arrPage;
+				$arrId = $arrPage['family_jumpTo'];
 			}
 		}
 		//find db record of jumpTo page

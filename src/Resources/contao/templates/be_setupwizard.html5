@@ -48,5 +48,5 @@
 <?php if(empty($this->redirectionSetup)) : ?>
     <div class="problem">Bitte richten Sie im Website-Startpunkt (Seitenstruktur) eine Weiterleitungsseite ein, die auf eine Seite mit dem Modul "Eigenen Eintrag bearbeiten" verweist.</div>
 <?php else : ?>
-    <div class="okay">Weiterleitungsseite ist eingerichtet (ID <?= $this->redirectionSetup['id'] ?>: "<?= $this->redirectionSetup['title'] ?>")</div>
+    <div class="okay">Weiterleitungsseite ist eingerichtet (Seite ID <?= $this->redirectionSetup['id'] ?>: "<?= $this->redirectionSetup['title'] ?>")</div>
 <?php endif; ?>
