@@ -16,12 +16,12 @@
  * @license GPL-3.0+
  */
 
- //Add field "family_jumpTo" to palettes
- $GLOBALS['TL_DCA']['tl_module']['palettes']['login'] = str_replace('redirectBack;','redirectBack,familyJumpTo;',$GLOBALS['TL_DCA']['tl_module']['palettes']['login']);
+ //Add family_jumpTo to palettes
+ $GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('pageTitle;','pageTitle;{family_legend},family_jumpTo;',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
 
  //Add field "family_jumpTo"
- $GLOBALS['TL_DCA']['tl_module']['fields']['family_jumpTo'] = array(
-	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['family_jumpTo'],
+ $GLOBALS['TL_DCA']['tl_page']['fields']['family_jumpTo'] = array(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_page']['family_jumpTo'],
 	'exclude'                 => true,
 	'inputType'               => 'pageTree',
 	'foreignKey'              => 'tl_page.title',
