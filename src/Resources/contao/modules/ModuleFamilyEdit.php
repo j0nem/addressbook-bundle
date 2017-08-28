@@ -114,6 +114,7 @@
 		//fetch existing data
 		$this->Template->data = $this->getFormData();
 		$this->Template->legendLabels = $this->getLegendLabels();
+		$this->Template->firstLogin = $this->Input->get('message') == firstlogin ? true : false;
 	}
 
 	/**
@@ -275,6 +276,7 @@
 				$arrFields[$key] = $this->Input->post($key);
 			}
 		}
+		$arrFields['completed'] = 1;
 		$this->Database->prepare("UPDATE tl_family %s WHERE account_id = ?")
 			->set($arrFields)->execute($this->User->id);
 		return 'success';

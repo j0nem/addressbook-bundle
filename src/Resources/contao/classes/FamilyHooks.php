@@ -62,7 +62,9 @@ Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 		if ($objUser instanceof \FrontendUser) {
 			$arrEntry = Family::getAddressEntryOfMember($objUser->id);
 			if($arrEntry && $arrEntry['completed'] != 1) {
-				\Controller::redirect('mein-eintrag');
+				$arrRootPages = \PageModel::findPublishedRootPages();
+				//LIMITATION: does currently not work with multiple root pages
+				\Controller::redirect($arrRootPages[0]->getRelated('family_jumpTo')->getFrontendUrl().'/message/firstlogin');
 			}
 		}
 	}

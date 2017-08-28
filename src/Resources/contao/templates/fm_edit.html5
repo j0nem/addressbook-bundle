@@ -9,6 +9,11 @@
     });
 </script>
 <section class="fm_edit">
+<?php if($this->firstLogin) : ?>
+    <div class="success-box">
+        <p>Sie haben sich erfolgreich angemeldet! Sie können jetzt Ihren Adressbucheintrag ergänzen. Sobald Ihr Account von eine Administrator verifiziert wurde, wird Ihr Eintrag veröffentlicht und Sie können Sie auf die vollständige Liste zugreifen.</p>
+    </div>
+<?php endif; ?>
 <?php if($this->success) : ?>
     <div class="success-box"><p>Daten wurden erfolgreich gespeichert.</p></div>
 <?php endif; ?>
