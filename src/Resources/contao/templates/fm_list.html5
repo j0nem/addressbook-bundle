@@ -28,8 +28,8 @@
 
 <section class="fm_detail">
 
-<?php if($this->isMyProfile) : ?><a clas="side-link" href="<?= $this->editHref ?>">Mein Profil bearbeiten</a><?php endif; ?>
-<?php if($this->isNotMaintained) : ?><a clas="side-link" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlagen Sie Änderungen vor</a><?php endif; ?>
+<?php if($this->isMyProfile) : ?><a class="side-link" href="<?= $this->editHref ?>">Mein Profil bearbeiten</a><?php endif; ?>
+<?php if($this->isNotMaintained) : ?><a class="side-link" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlagen Sie Änderungen vor</a><?php endif; ?>
 
 	<div class="profile">
 		<p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p>
