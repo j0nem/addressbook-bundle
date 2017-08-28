@@ -59,6 +59,8 @@
 	 */
 	protected function compile()
 	{
+		$this->import('FrontendUser','User');
+
 		//Redirect if not logged in
 		if(!FE_USER_LOGGED_IN){
 			/* FUNKTIONIERT in Contao 4 schinbar NICHT MEHR
@@ -99,6 +101,18 @@
 				}
 			}
 
+			if($arrActiveRecord['account_id'] == $this->User->id) {
+				$this->Template->isMyProfile = true;
+				if($this->family_editJumpTo && ($objTarget = $this->objModel->getRelated('family_editJumpTo')) instanceof \PageModel) {
+					$this->Template->editHref = $objTarget->getFrontendUrl();
+				}
+			}
+			if($arrActiveRecord['account_id'] == 0) {
+				$this->Template->isNotMaintained = true;
+				if($this->family_suggestJumpTo && ($objTarget = $this->objModel->getRelated('family_suggestJumpTo')) instanceof \PageModel) {
+					$this->Template->suggestHref = $objTarget->getFrontendUrl();
+				}
+			}
 			$this->Template->activeRecord = $arrActiveRecord;
 			$this->Template->backHref = $this->addToUrl('id=',['_locale','id']);
 
