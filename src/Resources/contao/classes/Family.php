@@ -86,12 +86,9 @@
 	 }
 
 	 public static function getMemberAccount($id) {
-		 $arrEntry = static::fullList()[$id];
-
+		$arrEntry = static::fullList()[$id];
 		if($arrEntry['account_id']) {
-			 $objUser = \FrontendUser::getInstance();
-			 $objUser->findBy('id',$arrEntry['account_id']);
-
+			 $objUser = \MemberModel::findById($arrEntry['account_id']);
 			 return $objUser;
 		 }
 		 return false;
