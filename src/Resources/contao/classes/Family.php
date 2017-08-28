@@ -85,7 +85,7 @@
 		}
 	 }
 
-	 public static function getMemberAccount($id) {
+	 public static function getAccountOfAddressEntry($id) {
 		$arrEntry = static::fullList()[$id];
 		if($arrEntry['account_id']) {
 			 $objUser = \MemberModel::findById($arrEntry['account_id']);
