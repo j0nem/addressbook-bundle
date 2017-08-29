@@ -95,14 +95,18 @@
 		if(!FE_USER_LOGGED_IN) {
 			return false;
 		}
-		$this->import('Database');
 		$this->import('FrontendUser','User');
-		\System::loadLanguageFile('tl_family');
-		\System::loadLanguageFile('tl_member');
+
+		$objForm = new FamilyForm('member',$this->User->id);
 
 		//save new data
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			$res = $this->saveData();
+			foreach($_POST as $key => $value) {
+				$arrPost[$key] = $this->Input->post($key);
+			}
+			$objForm->mixedData = $arrPost;
+			$res = $objForm->save();
+
 			if(is_array($res)) {
 				$this->Template->error = $res;
 			}
@@ -112,9 +116,9 @@
 		}
 
 		//fetch existing data
-		$this->Template->data = $this->getFormData();
-		$this->Template->legendLabels = $this->getLegendLabels();
-		$this->Template->firstLogin = $this->Input->get('message') == firstlogin ? true : false;
+		$this->Template->data = $objForm->getFormData();
+		$this->Template->legendLabels = $objForm->getLegendLabels();
+		$this->Template->firstLogin = $this->Input->get('message') == 'firstlogin' ? true : false;
 	}
 
 	/**
