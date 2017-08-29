@@ -69,7 +69,7 @@
 		//save new data
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
 			foreach($_POST as $key => $value) {
-				$arrPost[$key] = $this->Input->post($key);
+				$arrPost[$key] = \Input::post($key);
 			}
 			$objForm->mixedData = $arrPost;
 			$res = $objForm->save();

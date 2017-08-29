@@ -39,9 +39,9 @@ class ModuleFamilyVerification extends \BackendModule {
 
 		//apply changes on POST request
 		if($_SERVER['REQUEST_METHOD'] == 'POST') {
-			if($this->Input->post('METHOD') == 'verify_member') {
-				$this->verifyMember($this->Input->post('id'));
-				$this->sendInfoMail($this->Input->post('id'));
+			if(\Input::post('METHOD') == 'verify_member') {
+				$this->verifyMember(\Input::post('id'));
+				$this->sendInfoMail(\Input::post('id'));
 			}
 		}
 

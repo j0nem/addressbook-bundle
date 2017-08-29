@@ -74,10 +74,10 @@
 		$arrList = Family::fullList();
 
 		//DETAIL
-		if($this->Input->get('id') != '' && $arrList[$this->Input->get('id')]) {
+		if(\Input::get('id') != '' && $arrList[\Input::get('id')]) {
 			$this->Template->mode = 'detail';
 
-			$arrActiveRecord = $arrList[$this->Input->get('id')];
+			$arrActiveRecord = $arrList[\Input::get('id')];
 			$arrActiveRecord['birthday'] = Family::formatDate($arrActiveRecord,false);
 
 			if($arrActiveRecord['city']) {
@@ -117,7 +117,7 @@
 			$this->Template->backHref = $this->addToUrl('id=',['_locale','id']);
 
 			global $objPage;
-			$objPage->pageTitle = Family::formatName($arrList[$this->Input->get('id')]);
+			$objPage->pageTitle = Family::formatName($arrList[\Input::get('id')]);
 		}
 
 		//LIST
