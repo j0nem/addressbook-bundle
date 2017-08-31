@@ -38,7 +38,7 @@ $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/menu.css';
  */
 $GLOBALS['FE_MOD']['family']['fm_list'] = 'Jmedia\ModuleFamilyList';
 $GLOBALS['FE_MOD']['family']['fm_edit'] = 'Jmedia\ModuleFamilyEdit';
-
+$GLOBALS['FE_MOD']['family']['fm_add'] = 'Jmedia\ModuleFamilyAdd';
 
 /**
  * Hooks

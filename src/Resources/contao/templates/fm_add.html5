@@ -1,0 +1,65 @@
+<?php $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jmediaaddressbook/chosen.jquery.min.js'; ?>
+<?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/chosen.css'; ?>
+<script>
+    $(document).ready(function(){
+        $('.chosen').chosen({
+            'width': '21%',
+            'no_results_text': 'Keinen Eintrag gefunden'
+        });
+    });
+</script>
+<?php if($this->invite_error) : ?><div class="error-box"><p><?= $this->error ?></p></div><?php endif; ?>
+<?php if($this->page == 'invitation-form') : ?>
+    <h2>Besitzt die Person eine E-Mail-Adresse?</h2>
+    <p>Laden Sie die Person ein, damit sie sich selbst einen Zugang anlegen kann.</p>
+    <form method="POST">
+        <input type="hidden" name="FORM_SUBMIT" value="invitation-form" />
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
+        <label for="email">E-Mail-Adresse</label>
+        <input type="email" name="email" placeholder="erika.mustermann@web.de" /><br />
+        <div class="inline-container">
+            <button type="submit">Per E-Mail einladen</button>
+            <a class="button" href="<?= $this->addHref ?>">Person ohne eigenen Zugang anlegen</a>
+        </div>
+    </form>
+<?php elseif($this->page == 'invitation-success') : ?>
+    <h2>Einladung erfolgreich!</h2>
+    <p>Wir haben eine Einladung an <?= $this->email ?> geschickt. Die Person wurde dazu eingeladen, sich beim Adressbuch zu registrieren.</p>
+    <p>Vielen Dank für Ihre Hilfe!</p>
+    <p><a href="<?= $this->backHref ?>">Zurück</a></p>
+<?php elseif($this->page == 'add-form') : ?>
+    <h2>Person ohne eigenen Zugang anlegen</h2>
+    <div class="hint-box"><p>Bitte beachten Sie, dass die hier angelegte Person sich selbst <strong>nicht</strong> beim Adressbuch anmelden und die Liste aufrufen kann.</p></div>
+    <form method="POST">
+        <input type="hidden" name="FORM_SUBMIT" value="add-form" />
+        <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
+        <?php foreach($this->fields as $strGroup => $arrFields) : ?>
+            <h3><?= $this->legendLabels[$strGroup] ?></h3>
+            <?php foreach ($arrFields as $clm => $field) : ?>
+                <?php if($this->add_error['error'] == $clm) : ?>
+                    <div class="ce_text error-box"><p><?= $this->add_error['label'] ?></p></div>
+                <?php endif; ?>
+                <label for="<?= $clm ?>"><?= $field['label'] ?></label>
+                <?php if($field['type'] == 'textarea') : ?>
+                    <textarea name="<?= $clm ?>"></textarea>
+                <?php elseif($field['type'] == 'select') : ?>
+                    <select name="<?= $clm ?>"<?php if($field['class']) : ?> class="<?= $field['class'] ?>"<?php endif; ?>>
+                        <?php foreach($field['options'] as $alias => $name) : ?>
+                            <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
+                        <?php endforeach; ?>
+                    </select>
+                <?php else : ?>
+                    <input type="<?= $field['type'] ?>" name="<?= $clm ?>" value="<?= $field['value'] ?>"></input>
+                <?php endif; ?>
+                <br />
+            <?php endforeach; ?>
+        <?php endforeach; ?>
+        <button type="submit">Anlegen</button>
+    </form>
+<?php elseif($this->page == 'add-success') : ?>
+    <h2>Person erfolgreich hinzugefügt!</h2>
+    <div class="success-box"><p>Die Person wurde erfolgreich angelegt!</p></div>
+    <p>Der neue Eintrag wird noch von einem Administrator verifiziert, bevor er veröffentlicht wird.</p>
+    <p>Vielen Dank für Ihre Mithilfe!</p>
+    <p><a href="<?= $this->backHref ?>">Zurück</a></p>
+<?php endif; ?>
