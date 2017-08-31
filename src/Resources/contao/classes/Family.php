@@ -94,6 +94,19 @@
 		 return false;
 	 }
 
+	 public static function getEmptyEntry() {
+		 $arrColumns = \Database::getInstance()->listFields('tl_family');
+		 foreach($arrColumns as $arrColumn) {
+			if($arrColumn['type'] == 'int'){
+				$arrEmptyEntry[$arrColumn['name']] = 0;
+			}
+			elseif($arrColumn['type'] == 'varchar') {
+				$arrEmptyEntry[$arrColumn['name']] = '';
+			}
+		 }
+		 return $arrEmptyEntry;
+	 }
+
 	 public static function getChildren($id) {
 		 $arrList = static::fullList();
 		 $arrChildren = array();
