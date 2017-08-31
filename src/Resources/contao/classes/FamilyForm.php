@@ -35,7 +35,7 @@
  *		$arrFields = $form->getFormData();
  *
  * 		//Write data, after creating objects
- *		$form->mixedData = $this->Input->post;
+ *		$form->setData($arrPost);
  *		$response = $form->save();
  */
 
@@ -134,6 +134,7 @@
 		}
 		elseif($strType == 'new'){
 			$this->strType = 'new-record';
+			$this->arrFamily = Family::getEmptyEntry();
 		}
 		else {
 			return false;
@@ -160,25 +161,22 @@
 
 	/**
 	* Set data, either to tl_family or tl_member
+	* and save old version in $this->arrFamilyOld
 	*
-	* @param $strKey
 	* @param $data
 	*/
-	public function __set($strKey,$data) {
-		if($strKey == 'mixedData') {
-			foreach($data as $key => $value) {
-				if ($key == 'email' || $key == 'about_me') {
-					if($this->objMember->{$key} != $value) {
-						$this->arrFamilyOld[$key] = $this->objMember->{$key};
-						$this->objMember->{$key} = $value;
-					}
+	public function setData($data) {
+		foreach($data as $key => $value) {
+			if ($key == 'email' || $key == 'about_me') {
+				if($this->objMember->{$key} != $value) {
+					$this->arrFamilyOld[$key] = $this->objMember->{$key};
+					$this->objMember->{$key} = $value;
 				}
-				elseif($this->getFieldGroup($key) && $this->arrFamily[$key] != $value) {
-					$this->arrModified[] = $key;
-					//save old value in $arrFamilyOld
-					$this->arrFamilyOld[$key] = $this->arrFamily[$key];
-					$this->arrFamily[$key] = $value;
-				}
+			}
+			elseif($this->getFieldGroup($key) && $this->arrFamily[$key] != $value) {
+				$this->arrModified[] = $key;
+				$this->arrFamilyOld[$key] = $this->arrFamily[$key];
+				$this->arrFamily[$key] = $value;
 			}
 		}
 	}
@@ -197,6 +195,10 @@
 			$this->arrData[$this->getFieldGroup('email')]['email'] = [ 'value' => $this->objMember->email, 'type' => 'email', 'label' => $this->getLabel('email') ];
 			$this->arrData[$this->getFieldGroup('about_me')]['about_me'] = [ 'value' => $this->objMember->about_me, 'type' => 'textarea', 'label' => $this->getLabel('about_me') ];
 		}
+		else {
+			unset($this->arrData[$this->getFieldGroup('email')]['email']);
+			unset($this->arrData[$this->getFieldGroup('about_me')]['about_me']);
+		}
 
 		//add tl_family data
 		foreach ($this->arrFamily as $clm => $val) {
@@ -204,7 +206,7 @@
 			$strClass = '';
 			if($this->getFieldGroup($clm)) {
 				//=== DATE OF BIRTH ===
-				if($clm == 'dateOfBirth') {
+				if($clm == 'dateOfBirth' && $val) {
 					$val = date('d.m.Y',$val);
 				}
 				//=== POSTAL ===
@@ -237,12 +239,13 @@
 	}
 
 	/**
-	* Save form data
+	* Validate and save form data
 	*
 	* @return mixed true|$arrErrors
 	*/
 	public function save() {
-		//check dateOfBirth
+
+		//check dateOfBirth (has to be checked FIRST)
 		if($this->arrFamily['dateOfBirth'] && in_array('dateOfBirth',$this->arrModified)) {
 			if(strlen(strval($this->arrFamily['dateOfBirth'])) == 9) {
 				$blnValid = false;
@@ -267,11 +270,26 @@
 				}
 			}
 		}
+		else {
+			$blnValid = true;
+		}
 		if(!$blnValid) {
 			//error: reset to old value
 			$this->arrFamily['dateOfBirth'] = $this->arrFamilyOld['dateOfBirth'];
 			unset($this->arrModified['dateOfBirth']);
 			return [ 'error' => 'dateOfBirth', 'label' => $GLOBALS['TL_LANG']['Family']['error']['dateOfBirth'] ];
+		}
+
+		//check name
+		if(!$this->arrFamily['firstname']) {
+			$this->arrFamily['firstname'] = $this->arrFamilyOld['firstname'];
+			unset($this->arrModified['firstname']);
+			return [ 'error' => 'firstname', 'label' => $GLOBALS['TL_LANG']['Family']['error']['firstname'] ];
+		}
+		if(!$this->arrFamily['lastname']) {
+			$this->arrFamily['lastname'] = $this->arrFamilyOld['lastname'];
+			unset($this->arrModified['lastname']);
+			return  [ 'error' => 'lastname', 'label' => $GLOBALS['TL_LANG']['Family']['error']['lastname'] ];
 		}
 
 		//check postal
@@ -281,6 +299,7 @@
 			unset($this->arrModified['postal']);
 			return [ 'error' => 'postal', 'label' => $GLOBALS['TL_LANG']['Family']['error']['postal'] ];
 		}
+
 		//check phone/fax numbers
 		$arrPhones = [ 'phone','mobile','fax' ];
 		foreach($arrPhones as $elem) {
@@ -329,8 +348,12 @@
 		}
 		$arrFields['completed'] = 1;
 		$db = \Database::getInstance();
-		$db->prepare("UPDATE tl_family %s WHERE id = ?")
-			->set($arrFields)->execute($this->arrFamily['id']);
+		if($this->strType == 'new-record') {
+			$db->prepare("INSERT INTO tl_family %s")->set($arrFields)->execute();
+		}
+		else {
+			$db->prepare("UPDATE tl_family %s WHERE id = ?")->set($arrFields)->execute($this->arrFamily['id']);
+		}
 
 		return true;
 	}
@@ -364,7 +387,9 @@
 		}
 		//=== COUNTRY FIELD ===
 		elseif($strClm == 'country') {
-			return \System::getCountries();
+			$arrCountries = \System::getCountries();
+			$arrCountries[''] = '-';
+			return $arrCountries;
 		}
 		//=== FAMILY FIELD ===
 		elseif(in_array($strClm,['mother','father','partner'])){
