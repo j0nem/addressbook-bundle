@@ -71,7 +71,7 @@
 			foreach($_POST as $key => $value) {
 				$arrPost[$key] = \Input::post($key);
 			}
-			$objForm->mixedData = $arrPost;
+			$objForm->setData($arrPost);
 			$res = $objForm->save();
 
 			if(is_array($res)) {
