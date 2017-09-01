@@ -347,6 +347,7 @@
 			}
 		}
 		$arrFields['completed'] = 1;
+		$arrFields['tstamp'] = time();
 		$db = \Database::getInstance();
 		if($this->strType == 'new-record') {
 			$db->prepare("INSERT INTO tl_family %s")->set($arrFields)->execute();
