@@ -28,7 +28,7 @@ class ModuleFamilyVerification extends \BackendModule {
 	protected $intVerifiedGroup = 0;
 	protected $intUnverifiedGroup = 0;
 
-	/*
+	/**
 	* Renders the backend module
 	*/
     protected function compile() {
@@ -43,20 +43,18 @@ class ModuleFamilyVerification extends \BackendModule {
 				$this->verifyMember(\Input::post('id'));
 				$this->sendInfoMail(\Input::post('id'));
 			}
+			if(\Input::post('METHOD') == 'publish_new_entry') {
+				$this->publishNewEntry(\Input::post('id'));
+			}
 		}
 
-		//fetch unverified member entries
-		$arrMemberEntries = $this->fetchMemberEntries();
-
-		//fetch unreviewed addressbook updates
-		$arrBookUpdates = $this->fetchBookUpdates();
-
 		//prepare template data
-		$this->Template->memberEntries = $arrMemberEntries;
-		$this->Template->bookUpdates = $arrBookUpdates;
+		$this->Template->memberEntries = $this->fetchMemberEntries();
+		$this->Template->bookNew = $this->fetchBookNew();
+		$this->Template->bookUpdates = $this->fetchBookUpdates();
 	}
 
-	/*
+	/**
 	* Get group IDs for unverified and verified members
 	*
 	* @var $intVerifiedGroup
@@ -75,7 +73,7 @@ class ModuleFamilyVerification extends \BackendModule {
 		}
 	}
 
-	/*
+	/**
 	* Check if there is a "verified" and an "unverified" group
 	*
 	* @return array
@@ -91,7 +89,7 @@ class ModuleFamilyVerification extends \BackendModule {
 		return $arrMessages;
 	}
 
-	/*
+	/**
 	* Adjust groups of member to verify the member
 	*
 	* @param int $intId
@@ -136,7 +134,17 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 		$objMail->sendTo($arrUser['email']);
 	}
 
-	/*
+	/**
+	* Publish an addressbok entry
+	*
+	* @param int $intId
+	* @return void
+	*/
+	protected function publishNewEntry($intId) {
+		$this->Database->prepare("UPDATE tl_family SET visible = 1 WHERE id = ?")->execute($intId);
+	}
+
+	/**
 	* Fetch Unverified member entries from Database
 	*
 	* @var $intUnverifiedGroup
@@ -159,7 +167,23 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 		return $arrMemberEntries;
 	}
 
-	/*
+	/**
+	* Fetch new unverified addressbook entries
+	*
+	* @return array
+	*/
+	protected function fetchBookNew() {
+		$arrBookEntries = [];
+		$bookEntries = $this->Database->query("SELECT * FROM tl_family WHERE visible != 1");
+		while($arrBookEntry = $bookEntries->fetchAssoc()) {
+			$arrBookEntry['strDateOfBirth'] = $arrBookEntry['dateOfBirth'] ? date('m.d.Y',$arrBookEntry['dateOfBirth']) : '';
+			$arrBookEntries[] = $arrBookEntry;
+		}
+
+		return $arrBookEntries;
+	}
+
+	/**
 	* Fetch addressbook updates
 	*
 	* @return array
