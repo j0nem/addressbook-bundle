@@ -24,15 +24,18 @@
 	 protected static $familyListLoaded;
 
 
-	 public static function fullList() {
+	 public static function fullList($onlyVisible = false) {
 		 if(!static::$familyListLoaded) {
 			 $list = \Database::getInstance()
 						->prepare("SELECT * FROM tl_family ORDER BY lastname,firstname")->execute();
 			while($row = $list->fetchAssoc()) {
+				if($row['visible'] == 1 || !$onlyVisible) {
+					$arrReturn[$row['id']] = $row;
+				}
 				static::$arrFamilyList[$row['id']] = $row;
 			}
 		 }
-		 return static::$arrFamilyList;
+		 return $arrReturn;
 	 }
 
 	 public static function nameList() {
