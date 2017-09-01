@@ -102,6 +102,7 @@
 				}
 				else {
 					$this->strPage = 'add-success';
+					$this->sendVerificationEmail($objForm);
 				}
 			}
 			else {
@@ -147,6 +148,45 @@
 <p><a href="http://'.\Environment::get('httpHost').'">http://'.\Environment::get('httpHost').'</a></p>
 <p>Ihr Team vom Familienadressbuch</p>';
 		$objMail->sendTo(\Input::post('email'));
+		return true;
+	}
+
+	/**
+	* Send admin notification email
+	*
+	* @param object $objForm
+	* @return boolean
+	*/
+	protected function sendVerificationEmail($objForm){
+		//get addressbook entry of member who is currently logged in
+		$arrEntry = Family::getAddressEntryOfMember($this->User->id);
+
+		$objMail = new \Email();
+		$objMail->subject = 'Neuer Adressbucheintrag von ' . $arrEntry['firstname'] . ' ' . $arrEntry['lastname'];
+		$strDateOfBirth = $objForm->dateOfBirth ? date('d.m.Y',$objForm->dateOfBirth) : '';
+		$objMail->html = '<h2>'.$arrEntry['firstname'].' '.$arrEntry['lastname'].' hat '.$objForm->firstname.' '.$objForm->lastname.' hinzugefügt</h2>
+<p>Folgende Angaben wurden gemacht:</p>
+<p>Geburtsname: '.$objForm->nameOfBirth.'<br />
+Geschlecht: '.$objForm->gender.'<br />
+Geburtsdatum: '.$strDateOfBirth.'<br />
+Straße: '.$objForm->street.'<br />
+PLZ: '.$objForm->postal.'<br />
+Ort: '.$objForm->city.'<br />
+Land: '.$objForm->country.'<br />
+Telefon: '.$objForm->phone.'<br />
+Handy: '.$objForm->mobile.'<br />
+Fax: '.$objForm->fax.'<br />
+Mutter: '.Family::formatName(Family::getAddressEntry($objForm->mother)).'<br />
+Vater: '.Family::formatName(Family::getAddressEntry($objForm->father)).'<br />
+Partner: '.Family::formatName(Family::getAddressEntry($objForm->partner)).'<br />
+Beziehung zum Partner: '.$objForm->partner_relation.'</p>
+<p><a href="http://'.\Environment::get('httpHost').'/contao?do=fm_verification">Jetzt verifizieren</a></p>';
+
+		//send notification mails to admins who subscribed
+		$admins = $this->Database->query("SELECT email FROM tl_user WHERE family_notifications = 1");
+		while($arrAdmin = $admins->fetchAssoc()) {
+			$objMail->sendTo($arrAdmin['email']);
+		}
 		return true;
 	}
 }
