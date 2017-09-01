@@ -174,7 +174,7 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	*/
 	protected function fetchBookNew() {
 		$arrBookEntries = [];
-		$bookEntries = $this->Database->query("SELECT * FROM tl_family WHERE visible != 1");
+		$bookEntries = $this->Database->query("SELECT * FROM tl_family WHERE visible != 1 AND account_id = 0");
 		while($arrBookEntry = $bookEntries->fetchAssoc()) {
 			$arrBookEntry['strDateOfBirth'] = $arrBookEntry['dateOfBirth'] ? date('m.d.Y',$arrBookEntry['dateOfBirth']) : '';
 			$arrBookEntries[] = $arrBookEntry;
