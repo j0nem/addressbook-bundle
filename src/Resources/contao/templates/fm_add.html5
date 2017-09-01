@@ -57,7 +57,7 @@
         <?php endforeach; ?>
         <button type="submit">Anlegen</button>
     </form>
-    <div class="hint-box"><p>Falls die Person Kinder hat, sollten die Kinder diese Person als Elternteil angeben. Dann werden die Kinder auch auf dem Profil der Eltern verlinkt.</p></div>
+    <div class="hint-box ce_text"><p>Falls die Person Kinder hat, sollten die Kinder diese Person als Elternteil angeben. Dann werden die Kinder auch auf dem Profil der Eltern verlinkt.</p></div>
 <?php elseif($this->page == 'add-success') : ?>
     <h2>Person erfolgreich hinzugefügt!</h2>
     <div class="success-box"><p>Die Person wurde erfolgreich angelegt!</p></div>
