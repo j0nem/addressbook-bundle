@@ -1,3 +1,4 @@
+<section class="fm_add">
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jmediaaddressbook/chosen.jquery.min.js'; ?>
 <?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/chosen.css'; ?>
 <script>
@@ -56,6 +57,7 @@
         <?php endforeach; ?>
         <button type="submit">Anlegen</button>
     </form>
+    <div class="hint-box"><p>Falls die Person Kinder hat, sollten die Kinder diese Person als Elternteil angeben. Dann werden die Kinder auch auf dem Profil der Eltern verlinkt.</p></div>
 <?php elseif($this->page == 'add-success') : ?>
     <h2>Person erfolgreich hinzugefügt!</h2>
     <div class="success-box"><p>Die Person wurde erfolgreich angelegt!</p></div>
@@ -63,3 +65,4 @@
     <p>Vielen Dank für Ihre Mithilfe!</p>
     <p><a href="<?= $this->backHref ?>">Zurück</a></p>
 <?php endif; ?>
+</section>
