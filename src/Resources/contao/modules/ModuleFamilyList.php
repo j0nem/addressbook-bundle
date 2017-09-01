@@ -71,7 +71,7 @@
 			return false;
 		}
 
-		$arrList = Family::fullList();
+		$arrList = Family::fullList(true);
 
 		//DETAIL
 		if(\Input::get('id') != '' && $arrList[\Input::get('id')]) {
