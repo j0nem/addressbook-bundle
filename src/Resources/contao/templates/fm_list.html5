@@ -53,7 +53,7 @@
 			</ul>
 		<?php endif; ?>
 
-		<?php if(!$this->activeRecord['father'] && !$this->activeRecord['mother'] && !$this->activeRecord['partner']) : ?>Keine Verbindungen eingetragen.<?php endif; ?>
+		<?php if(!$this->activeRecord['father'] && !$this->activeRecord['mother'] && !$this->activeRecord['partner'] && !$this->activeRecord['children']) : ?>Keine Verbindungen eingetragen.<?php endif; ?>
 		<p></p>
 		<p><a href="<?= $this->backHref; ?>">Zurück zur Liste</a></p>
 	</div>
