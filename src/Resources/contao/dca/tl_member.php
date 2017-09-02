@@ -16,10 +16,6 @@
  * @license GPL-3.0+
  */
 
- //Make Firstname and Lastname in tl_member not mandatory
- $GLOBALS['TL_DCA']['tl_member']['fields']['firstname']['eval']['mandatory'] = false;
- $GLOBALS['TL_DCA']['tl_member']['fields']['lastname']['eval']['mandatory'] = false;
-
  //Remove everything except mandatory account fields in the palettes
  $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('{personal_legend},firstname,lastname,dateOfBirth,gender;{address_legend:hide},company,street,postal,city,state,country;','',$GLOBALS['TL_DCA']['tl_member']['palettes']);
  $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('phone,mobile,fax,','',$GLOBALS['TL_DCA']['tl_member']['palettes']);
