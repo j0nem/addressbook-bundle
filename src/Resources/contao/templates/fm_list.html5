@@ -33,6 +33,7 @@
 
 	<div class="profile">
 		<p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p>
+		<p><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p>
 
 		<h2>Kontakt</h2>
 		<?php if($this->activeRecord['city']) : ?><p><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>

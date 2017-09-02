@@ -85,6 +85,7 @@
 			}
 			if($acc = Family::getAccountOfAddressEntry($arrActiveRecord['id'])) {
 				$arrActiveRecord['email'] = '<a href="mailto:'.$acc->email.'">'.$acc->email.'</a>';
+				$arrActiveRecord['about_me'] = $acc->about_me;
 			}
 			if($arrActiveRecord['father']) {
 				$arrActiveRecord['father_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['father'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['father'])).'</a>';
