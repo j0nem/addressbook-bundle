@@ -295,7 +295,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options'				  => array('engaged','married'),
+			'options'				  => array('relationship','engaged','married'),
 			'reference'				  => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options'],
 			'eval'                    => array('tl_class'=>'w50','includeBlankOption' => true),
 			'sql'                     => "varchar(255) NOT NULL default '0'"

@@ -57,7 +57,7 @@
   $GLOBALS['TL_LANG']['tl_family']['father'] = array('Vater','Bitte geben Sie den Account des Vaters der Person an, falls vorhanden');
   $GLOBALS['TL_LANG']['tl_family']['partner'] = array('Partner','Bitte geben Sie den Account des Partners der Person an, falls vorhanden');
   $GLOBALS['TL_LANG']['tl_family']['partner_relation'] = array('Beziehung zum Partner','Bitte geben Sie die Beziehung zum Partner an, falls verlobt oder verheratet.');
-  $GLOBALS['TL_LANG']['tl_family']['partner_relation_options'] = array('engaged' => 'verlobt', 'married' => 'verheiratet');
+  $GLOBALS['TL_LANG']['tl_family']['partner_relation_options'] = array('relationship'=>'In einer Beziehung','engaged' => 'verlobt', 'married' => 'verheiratet');
 
   $GLOBALS['TL_LANG']['tl_family']['visible_legend'] = 'Sichtbarkeit';
   $GLOBALS['TL_LANG']['tl_family']['visible'] = array('Sichtbar','Bitte geben Sie an, ob der Eintrag in der Adressliste öffentlich sichtbar gemacht werden soll.');
