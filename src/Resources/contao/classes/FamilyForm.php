@@ -407,6 +407,7 @@
 		elseif($strClm == 'partner_relation')  {
 			return [
 				'' => '-',
+				'relationship' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['relationship'],
 				'engaged' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['engaged'],
 				'married' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['married'],
 			];
