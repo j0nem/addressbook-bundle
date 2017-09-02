@@ -9,13 +9,13 @@
         });
     });
 </script>
-<?php if($this->invite_error) : ?><div class="error-box"><p><?= $this->error ?></p></div><?php endif; ?>
 <?php if($this->page == 'invitation-form') : ?>
     <h2>Besitzt die Person eine E-Mail-Adresse?</h2>
     <p>Laden Sie die Person ein, damit sie sich selbst einen Zugang anlegen kann.</p>
     <form method="POST">
         <input type="hidden" name="FORM_SUBMIT" value="invitation-form" />
         <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
+        <?php if($this->invite_error) : ?><div class="error-box"><p><?= $this->invite_error ?></p></div><?php endif; ?>
         <label for="email">E-Mail-Adresse</label>
         <input type="email" name="email" placeholder="erika.mustermann@web.de" /><br />
         <div class="inline-container">
