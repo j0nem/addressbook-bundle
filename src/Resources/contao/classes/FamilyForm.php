@@ -394,7 +394,7 @@
 		}
 		//=== FAMILY FIELD ===
 		elseif(in_array($strClm,['mother','father','partner'])){
-			$arrOptions =  Family::nameList();
+			$arrOptions =  Family::nameList(true);
 			//add empty option
 			$arrOptions[0] = '-';
 			//unset own entry from select options

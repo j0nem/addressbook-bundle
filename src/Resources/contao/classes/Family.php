@@ -38,8 +38,8 @@
 		 return $arrReturn;
 	 }
 
-	 public static function nameList() {
-		 $list = static::fullList();
+	 public static function nameList($onlyVisible = false) {
+		 $list = static::fullList($onlyVisible);
 		 foreach ($list as $elem) {
 			 $nameList[$elem['id']] = static::formatName($elem);
 		 }
