@@ -262,7 +262,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options_callback'		  => array('Family','nameList'),
+			'options_callback'		  => array('Jmedia\Family','nameList'),
 			'eval'                    => array('tl_class'=>'w50','includeBlankOption' => true),
 			'foreignKey'			  => 'tl_family.firstname',
 			'sql'                     => "int(10) NOT NULL default '0'"
@@ -273,7 +273,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options_callback'		  => array('Family','nameList'),
+			'options_callback'		  => array('Jmedia\Family','nameList'),
 			'eval'                    => array('tl_class'=>'w50','includeBlankOption' => true),
 			'foreignKey'			  => 'tl_family.firstname',
 			'sql'                     => "int(10) NOT NULL default '0'"
@@ -284,7 +284,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options_callback'		  => array('Family','nameList'),
+			'options_callback'		  => array('Jmedia\Family','nameList'),
 			'eval'                    => array('tl_class'=>'w50','includeBlankOption' => true),
 			'foreignKey'			  => 'tl_family.firstname',
 			'sql'                     => "int(10) NOT NULL default '0'"
