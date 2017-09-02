@@ -42,11 +42,12 @@
 		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . $GLOBALS['TL_CONFIG']['websiteTitle'];
 
 		$addressEntry = Family::getAddressEntryOfMember($memberModel->id);
+		$addressEntry['strDateOfBirth'] = $addressEntry['dateOfBirth'] ? date('m.d.Y',$addressEntry['dateOfBirth']) : '';
 
 		$objMail->html = '<h1>'.$addressEntry['firstname'].' '.$addressEntry['lastname'].' hat sich neu registriert</h1>
 Der Benutzer hat folgende Daten angegeben:<br /><br />
 E-Mail: '.$memberModel->email.'<br />
-Geburtstdatum: '.date('d.m.Y',$addressEntry['dateOfBirth']).'<br />
+Geburtstdatum: '.$addressEntry['strDateOfBirth'].'<br />
 Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 <a href="http://'.\Environment::get('httpHost').'/contao?do=fm_verification">Mitglied bestätigen</a>';
 
