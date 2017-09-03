@@ -32,8 +32,8 @@
 <?php if($this->isNotMaintained) : ?><a class="side-link button" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlagen Sie Änderungen vor</a><?php endif; ?>
 
 	<div class="profile">
-		<?php if($this->activeRecord) : ?><p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p><?php endif; ?>
-		<p><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p>
+		<?php if($this->activeRecord['birthday']) : ?><p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p><?php endif; ?>
+		<?php if($this->activeRecord['about_me']) : ?><p><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p><?php endif; ?>
 
 		<h2>Kontakt</h2>
 		<?php if($this->activeRecord['city']) : ?><p><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>
@@ -43,7 +43,7 @@
 		<h2>Familie</h2>
 		<?php if($this->activeRecord['father']) : ?><p><b>Vater:</b> <?= $this->activeRecord['father_link'] ?></p><?php endif; ?>
 		<?php if($this->activeRecord['mother']) : ?><p><b>Mutter:</b> <?= $this->activeRecord['mother_link'] ?></p><?php endif; ?>
-		<?php if($this->activeRecord['partner']) : ?><p><b>Partner:</b> <?= $this->activeRecord['partner_link'] ?></p><?php endif; ?>
+		<?php if($this->activeRecord['partner']) : ?><p><b>Partner:</b> <?= $this->activeRecord['partner_link'] ?><?php if($this->activeRecord['partner_relation']) : ?> (<?= $this->activeRecord['str_partner_relation'] ?>)<?php endif; ?></p><?php endif; ?>
 
 		<?php if($this->activeRecord['children']) : ?>
 			<p><b>Kinder:</b></p>

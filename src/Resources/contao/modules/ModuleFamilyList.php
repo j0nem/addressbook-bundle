@@ -96,6 +96,10 @@
 			if($arrActiveRecord['partner']) {
 				$arrActiveRecord['partner_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['partner'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['partner'])).'</a>';
 			}
+			if($arrActiveRecord['partner_relation']) {
+				\Controller::loadLanguageFile('tl_family');
+				$arrActiveRecord['str_partner_relation'] = $GLOBALS['TL_LANG']['tl_family']['partner_relation_options'][$arrActiveRecord['partner_relation']];
+			}
 			if($ch = Family::getChildren($arrActiveRecord['id'])) {
 				foreach($ch as $chId) {
 					$arrActiveRecord['children'][$chId]['link'] = '<a href="'.$this->addToUrl('id=' . $chId, ['_locale']).'">'.Family::formatName(Family::getAddressEntry($chId)).'</a>';
