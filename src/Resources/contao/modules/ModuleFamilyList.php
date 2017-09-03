@@ -81,7 +81,7 @@
 			$arrActiveRecord['birthday'] = Family::formatDate($arrActiveRecord,false);
 
 			if($arrActiveRecord['city']) {
-				$arrActiveRecord['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($arrActiveRecord,true)).'" target="_blank">'.Family::formatResidence($arrActiveRecord).'</a>';
+				$arrActiveRecord['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($arrActiveRecord,true)).'" target="_blank">'.Family::formatResidence($arrActiveRecord,true).'</a>';
 			}
 			if($acc = Family::getAccountOfAddressEntry($arrActiveRecord['id'])) {
 				$arrActiveRecord['email'] = '<a href="mailto:'.$acc->email.'">'.$acc->email.'</a>';

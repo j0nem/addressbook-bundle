@@ -69,13 +69,15 @@
 	 }
 
 	 public static function formatResidence($elem, $withAddress = false) {
-		 static::loadLanguageFile('countries');
-		 $str = '';
+		static::loadLanguageFile('countries');
+		$str = '';
 
-		 if($withAddress) $str .= $elem['street'] . ', ' . $elem['postal'] . ' ';
-		 $str .= $elem['city'] . ', ' . $GLOBALS['TL_LANG']['CNT'][$elem['country']];
+		if($withAddress) {
+			$str .= $elem['street'] . ', ' . $elem['postal'] . ' ';
+		}
+		$str .= $elem['city'] . ', ' . $GLOBALS['TL_LANG']['CNT'][$elem['country']];
 
-		 return $str;
+		return $str;
 	 }
 
 	 public static function getAddressEntry($id) {
