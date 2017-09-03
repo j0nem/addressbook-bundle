@@ -32,7 +32,7 @@
 <?php if($this->isNotMaintained) : ?><a class="side-link button" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlagen Sie Änderungen vor</a><?php endif; ?>
 
 	<div class="profile">
-		<p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p>
+		<?php if($this->activeRecord) : ?><p><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p><?php endif; ?>
 		<p><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p>
 
 		<h2>Kontakt</h2>
