@@ -8,6 +8,7 @@
 		<div class="list-column head">Name</div>
 		<div class="list-column head">Geburtsjahr</div>
 		<div class="list-column head">Telefon</div>
+		<div class="list-column head">Handy</div>
 		<div class="list-column head">Wohnort</div>
 	</div>
 
@@ -17,6 +18,7 @@
 			<div class="list-column"><?= $mem['detail_link'] ?></div>
 			<div class="list-column"><?= $mem['date_string'] ?></div>
 			<div class="list-column"><?= $mem['phone'] ?></div>
+			<div class="list-column"><?= $mem['mobile'] ?></div>
 			<div class="list-column"><?= $mem['gmaps_link'] ?></div>
 		</div>
 	<?php endforeach; ?>
