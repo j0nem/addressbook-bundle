@@ -1,13 +1,5 @@
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jmediaaddressbook/chosen.jquery.min.js'; ?>
 <?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/chosen.css'; ?>
-<script>
-    $(document).ready(function(){
-        $('.chosen').chosen({
-            'width': '21%',
-            'no_results_text': 'Keinen Eintrag gefunden'
-        });
-    });
-</script>
 <section class="fm_edit">
 <?php if($this->firstLogin) : ?>
     <div class="success-box">
@@ -23,25 +15,35 @@
         <?php foreach($this->data as $strGroup => $arrFields) : ?>
             <h2><?= $this->legendLabels[$strGroup] ?></h2>
             <?php foreach ($arrFields as $clm => $field) : ?>
-                <?php if($this->error['error'] == $clm) : ?>
-                    <div class="ce_text error-box"><p><?= $this->error['label'] ?></p></div>
-                <?php endif; ?>
-                <label for="<?= $clm ?>"><?= $field['label'] ?></label>
-                <?php if($field['type'] == 'textarea') : ?>
-                    <textarea name="<?= $clm ?>"><?= $field['value'] ?></textarea>
-                <?php elseif($field['type'] == 'select') : ?>
-                    <select name="<?= $clm ?>"<?php if($field['class']) : ?> class="<?= $field['class'] ?>"<?php endif; ?>>
-                        <?php foreach($field['options'] as $alias => $name) : ?>
-                            <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                <?php else : ?>
-                    <input type="<?= $field['type'] ?>" name="<?= $clm ?>" value="<?= $field['value'] ?>"></input>
-                <?php endif; ?>
-                <br />
+                <div class="field <?= $clm ?>"<?php if($field['doNotShow']) : ?> style="display:none"<?php endif; ?>>
+                    <?php if($this->error['error'] == $clm) : ?>
+                        <div class="ce_text error-box"><p><?= $this->error['label'] ?></p></div>
+                    <?php endif; ?>
+                    <label for="<?= $clm ?>" id="<?= $clm ?>"><?= $field['label'] ?></label>
+                    <?php if($field['type'] == 'textarea') : ?>
+                        <textarea name="<?= $clm ?>" id="<?= $clm ?>"><?= $field['value'] ?></textarea>
+                    <?php elseif($field['type'] == 'select') : ?>
+                        <select name="<?= $clm ?>" id="<?= $clm ?>"<?= $field['attributes'] ?>>
+                            <?php foreach($field['options'] as $alias => $name) : ?>
+                                <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php else : ?>
+                        <input type="<?= $field['type'] ?>" name="<?= $clm ?>" id="<?= $clm ?>" value="<?= $field['value'] ?>"></input>
+                    <?php endif; ?>
+                    <br />
+                </div>
             <?php endforeach; ?>
         <?php endforeach; ?>
         <button type="submit">Speichern</button>
     </form>
 
 </section>
+<script>
+$(document).ready(function(){
+    $('.chosen').chosen({
+        'width': '21%',
+        'no_results_text': 'Keinen Eintrag gefunden'
+    });
+});
+</script>

@@ -1,14 +1,6 @@
 <section class="fm_add">
 <?php $GLOBALS['TL_JAVASCRIPT'][] = 'bundles/jmediaaddressbook/chosen.jquery.min.js'; ?>
 <?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/chosen.css'; ?>
-<script>
-    $(document).ready(function(){
-        $('.chosen').chosen({
-            'width': '21%',
-            'no_results_text': 'Keinen Eintrag gefunden'
-        });
-    });
-</script>
 <?php if($this->page == 'invitation-form') : ?>
     <h2>Besitzt die Person eine E-Mail-Adresse?</h2>
     <p>Laden Sie die Person ein, damit sie sich selbst einen Zugang anlegen kann.</p>
@@ -35,25 +27,29 @@
         <input type="hidden" name="FORM_SUBMIT" value="add-form" />
         <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
         <?php foreach($this->fields as $strGroup => $arrFields) : ?>
-            <h3><?= $this->legendLabels[$strGroup] ?></h3>
-            <?php foreach ($arrFields as $clm => $field) : ?>
-                <?php if($this->add_error['error'] == $clm) : ?>
-                    <div class="ce_text error-box"><p><?= $this->add_error['label'] ?></p></div>
-                <?php endif; ?>
-                <label for="<?= $clm ?>"><?= $field['label'] ?></label>
-                <?php if($field['type'] == 'textarea') : ?>
-                    <textarea name="<?= $clm ?>"></textarea>
-                <?php elseif($field['type'] == 'select') : ?>
-                    <select name="<?= $clm ?>"<?php if($field['class']) : ?> class="<?= $field['class'] ?>"<?php endif; ?>>
-                        <?php foreach($field['options'] as $alias => $name) : ?>
-                            <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
-                        <?php endforeach; ?>
-                    </select>
-                <?php else : ?>
-                    <input type="<?= $field['type'] ?>" name="<?= $clm ?>" value="<?= $field['value'] ?>"></input>
-                <?php endif; ?>
-                <br />
-            <?php endforeach; ?>
+            <div class="group <?= $strGroup ?>">
+                <h3><?= $this->legendLabels[$strGroup] ?></h3>
+                <?php foreach ($arrFields as $clm => $field) : ?>
+                    <div class="field <?= $clm ?>"<?php if($field['doNotShow']) : ?> style="display:none"<?php endif; ?>>
+                        <?php if($this->add_error['error'] == $clm) : ?>
+                            <div class="ce_text error-box"><p><?= $this->add_error['label'] ?></p></div>
+                        <?php endif; ?>
+                        <label for="<?= $clm ?>"><?= $field['label'] ?></label>
+                        <?php if($field['type'] == 'textarea') : ?>
+                            <textarea name="<?= $clm ?>" id="<?= $clm ?>"<?= $field['attributes'] ?>></textarea>
+                        <?php elseif($field['type'] == 'select') : ?>
+                            <select name="<?= $clm ?>" id="<?= $clm ?>"<?= $field['attributes'] ?>>
+                                <?php foreach($field['options'] as $alias => $name) : ?>
+                                    <option value="<?= $alias ?>"<?php if($alias == $field['value']) : ?> selected<?php endif; ?>><?= $name ?></option>
+                                <?php endforeach; ?>
+                            </select>
+                        <?php else : ?>
+                            <input type="<?= $field['type'] ?>" name="<?= $clm ?>" id="<?= $clm ?>" value="<?= $field['value'] ?>"<?= $field['attributes'] ?>></input>
+                        <?php endif; ?>
+                        <br />
+                    </div>
+                <?php endforeach; ?>
+            </div>
         <?php endforeach; ?>
         <button type="submit">Anlegen</button>
     </form>
@@ -66,3 +62,21 @@
     <p><a href="<?= $this->backHref ?>">Zurück</a></p>
 <?php endif; ?>
 </section>
+
+<script>
+$(document).ready(function(){
+    $('.chosen').chosen({
+        'width': '21%',
+        'no_results_text': 'Keinen Eintrag gefunden'
+    });
+    if($('#isDeceased').is(':checked')) {
+        $('.group.address_legend').hide();
+        $('.group.contact_legend').hide();
+    }
+});
+function toggleDeceasedFields(elem) {
+    $('.group.address_legend').toggle();
+    $('.group.contact_legend').toggle();
+    $('div.field.dateOfDeath').toggle();
+}
+</script>

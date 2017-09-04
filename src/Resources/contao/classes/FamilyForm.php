@@ -54,6 +54,8 @@
 			'nameOfBirth' => [],
 			'gender' => [],
 			'dateOfBirth' => [],
+			'isDeceased' => [],
+			'dateOfDeath' => [],
 			'about_me' => []
 	   ],
 		'address_legend' => [
@@ -203,36 +205,52 @@
 		//add tl_family data
 		foreach ($this->arrFamily as $clm => $val) {
 			$arrOptions = [];
-			$strClass = '';
+			$strAttributes = '';
+			$blnDoNotShow = false;
 			if($this->getFieldGroup($clm)) {
-				//=== DATE OF BIRTH ===
-				if($clm == 'dateOfBirth' && $val) {
-					$val = date('d.m.Y',$val);
+				//=== PREPARE DATE FIELDS ===
+				if($clm == 'dateOfBirth' || $clm == 'dateOfDeath') {
+					if($val) {
+						$val = date('d.m.Y',$val);
+					}
+					$strAttributes = ' placeholder="tt.mm.jjjj"';
 				}
-				//=== POSTAL ===
-				elseif($clm == 'postal') {
+				if($clm == 'dateOfDeath' && $this->arrFamily['isDeceased'] != 1) {
+					$blnDoNotShow = true;
+				}
+				//=== FIND TYPE ===
+				if($clm == 'postal') {
 					$strType = 'number';
 				}
-				//=== TEL NUMBERS ===
 				elseif(in_array($clm,['phone','mobile','fax'])) {
 					$strType = 'tel';
 				}
-				//=== SELECT FIELDS ===
 				elseif(in_array($clm,['gender','country','mother','father','partner','partner_relation'])) {
 					$strType = 'select';
 					$arrOptions = $this->getSelectOptions($clm);
 					//add chosen to big select fields
 					if(count($arrOptions) > 3) {
-						$strClass = 'chosen';
+						$strAttributes .= ' class="chosen"';
+					}
+				}
+				elseif($clm == 'isDeceased') {
+					$strType = 'checkbox';
+					if($this->strType != 'new-record') {
+						$blnDoNotShow = true;
+					}
+					$strAttributes .= ' onclick="toggleDeceasedFields(this)"';
+					$val = '1';
+					if($this->arrFamily['isDeceased']) {
+						$strAttributes .= ' checked';
 					}
 				}
 				//=== ALL OTHER FIELDS ===
 				else {
 					$strType = 'text';
 				}
-				$this->arrData[$this->getFieldGroup($clm)][$clm] = [ 'value' =>$val, 'type' => $strType, 'label' => $this->getLabel($clm) ];
+				$this->arrData[$this->getFieldGroup($clm)][$clm] = [ 'value' =>$val, 'type' => $strType, 'label' => $this->getLabel($clm), 'doNotShow' => $blnDoNotShow];
 				$this->arrData[$this->getFieldGroup($clm)][$clm]['options'] = $arrOptions;
-				$this->arrData[$this->getFieldGroup($clm)][$clm]['class'] = $strClass;
+				$this->arrData[$this->getFieldGroup($clm)][$clm]['attributes'] = $strAttributes;
 			}
 		}
 		return $this->arrData;
@@ -245,39 +263,25 @@
 	*/
 	public function save() {
 
-		//check dateOfBirth (has to be checked FIRST)
-		if($this->arrFamily['dateOfBirth'] && in_array('dateOfBirth',$this->arrModified)) {
-			if(strlen(strval($this->arrFamily['dateOfBirth'])) == 9) {
-				$blnValid = false;
-			}
-			else {
-				$day = substr($this->arrFamily['dateOfBirth'],0,2);
-				$month = substr($this->arrFamily['dateOfBirth'],3,2);
-				$year = substr($this->arrFamily['dateOfBirth'],6,4);
-				if(!is_numeric($day) || !is_numeric($month) || !is_numeric($year)) {
-					$blnValid = false;
+		//check dates
+		$invalid = false;
+		$arrDates = [ 'dateOfBirth','dateOfDeath' ];
+		foreach($arrDates as $date) {
+			if($this->arrFamily[$date] && in_array($date,$this->arrModified)) {
+				$res = $this->validateDate($this->arrFamily[$date]);
+				if($res !== false) {
+					$this->arrFamily[$date] = $res;
 				}
 				else {
-					$blnIsDate = checkdate($month,$day,$year);
-					$intTime = strtotime($year.'-'.$month.'-'.$day);
-					if(!$blnIsDate || $intTime > time()) {
-						$blnValid = false;
-					}
-					else {
-						$blnValid = true;
-						$this->arrFamily['dateOfBirth'] = $intTime;
-					}
+					//error: reset to old value
+					$invalid = $date;
+					$this->arrFamily[$date] = $this->arrFamilyOld[$date];
+					unset($this->arrModified[$date]);
 				}
 			}
 		}
-		else {
-			$blnValid = true;
-		}
-		if(!$blnValid) {
-			//error: reset to old value
-			$this->arrFamily['dateOfBirth'] = $this->arrFamilyOld['dateOfBirth'];
-			unset($this->arrModified['dateOfBirth']);
-			return [ 'error' => 'dateOfBirth', 'label' => $GLOBALS['TL_LANG']['Family']['error']['dateOfBirth'] ];
+		if($invalid) {
+			return [ 'error' => $invalid, 'label' => $GLOBALS['TL_LANG']['Family']['error']['date'] ];
 		}
 
 		//check name
@@ -445,6 +449,36 @@
 		}
 		else {
 			return $GLOBALS['TL_LANG']['tl_family'][$strClm][0];
+		}
+	}
+
+	/**
+	* Validate date field
+	*
+	* @param mixed $value value to be tested if it is valid unix-timestamp
+	* @return mixed time-string if $value is valid, else false
+	*/
+	protected function validateDate($value) {
+		if(strlen(strval($value)) != 10) {
+			return false;
+		}
+		else {
+			$day = substr($value,0,2);
+			$month = substr($value,3,2);
+			$year = substr($value,6,4);
+			if(!is_numeric($day) || !is_numeric($month) || !is_numeric($year)) {
+				return false;
+			}
+			else {
+				$blnIsDate = checkdate($month,$day,$year);
+				$intTime = strtotime($year.'-'.$month.'-'.$day);
+				if(!$blnIsDate || $intTime > time()) {
+					return false;
+				}
+				else {
+					return $intTime;
+				}
+			}
 		}
 	}
  }
