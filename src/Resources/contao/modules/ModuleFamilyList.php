@@ -63,11 +63,6 @@
 
 		//Redirect if not logged in
 		if(!FE_USER_LOGGED_IN){
-			/* FUNKTIONIERT in Contao 4 schinbar NICHT MEHR
-			*
-			* $objHandler = new $GLOBALS['TL_PTY']['error_403']();
-			* $objHandler->generate($objPage->id);
-			*/
 			return false;
 		}
 
