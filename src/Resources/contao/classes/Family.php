@@ -47,24 +47,44 @@
 	 }
 
 	 public static function formatName($elem, $withHtml = false) {
-		 $str = $elem['lastname'] . ', ' . $elem['firstname'];
-		 if($elem['nameOfBirth'] && $elem['name'] != $elem['nameOfBirth']) {
+		$str = '';
+		if($elem['isDeceased']) {
+			$str .= ' ✝ ';
+		}
+		$str .= $elem['lastname'] . ', ' . $elem['firstname'];
+		if($elem['nameOfBirth'] && $elem['name'] != $elem['nameOfBirth']) {
 			 $str .=  ' ';
 			 if($withHtml) $str .= '<span class="nameOfBirth">';
 			 $str .= '(geb. ' . $elem['nameOfBirth'] . ')';
 			 if($withHtml) $str .= '</span>';
-		 }
+		}
+
 		 return $str;
 	 }
 
 	 public static function formatDate($elem, $yearOnly = true, $withAge = true) {
-		 if($elem['dateOfBirth']) {
-			if($yearOnly) $str = date('Y',$elem['dateOfBirth']);
-			else $str = date('d.m.Y',$elem['dateOfBirth']);
-
-			if($withAge) $str .= ' (Alter: ' . floor((date("Ymd") - date("Ymd",$elem['dateOfBirth'])) / 10000) . ')';
+		if($elem['dateOfBirth']) {
+			if($yearOnly) {
+				$str = date('Y',$elem['dateOfBirth']);
+			}
+			else {
+				$str = date('d.m.Y',$elem['dateOfBirth']);
+			}
+			//add age
+			if($withAge && !$elem['isDeceased']) {
+				$str .= ' (Alter: ' . floor((date("Ymd") - date("Ymd",$elem['dateOfBirth'])) / 10000) . ')';
+			}
+			//add date of death
+			elseif($elem['isDeceased'] && $elem['dateOfDeath']) {
+				if($yearOnly) {
+					$str .= ' (✝ ' . date('Y',$elem['dateOfDeath']) . ')';
+				}
+				else {
+					$str .= ' (✝ ' . date('d.m.Y',$elem['dateOfDeath']) . ')';
+				}
+			}
 			return $str;
-		 }
+		}
 		return false;
 	 }
 

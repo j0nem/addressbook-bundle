@@ -29,7 +29,8 @@
 
  /**
   * Legends
-  */
+	*/
+	$GLOBALS['TL_LANG']['tl_family']['deceased_legend'] = 'Person ist verstorben?';
   $GLOBALS['TL_LANG']['tl_family']['personal_legend'] = 'Persönliche Angaben';
   $GLOBALS['TL_LANG']['tl_family']['address_legend'] = 'Adresse und Wohnort';
   $GLOBALS['TL_LANG']['tl_family']['contact_legend'] = 'Kontaktdaten';
@@ -42,7 +43,9 @@
   $GLOBALS['TL_LANG']['tl_family']['firstname'] = array('Vorname','Bitte geben Sie den Vornamen der Person an.');
   $GLOBALS['TL_LANG']['tl_family']['lastname'] = array('Nachname','Bitte geben Sie den Nachnamen der Person an.');
   $GLOBALS['TL_LANG']['tl_family']['nameOfBirth'] = array('Geburtsname','Bitte geben Sie den Geburtsnamen der Person an (falls abweichend).');
-  $GLOBALS['TL_LANG']['tl_family']['dateOfBirth'] = array('Geburtsdatum','Bitte geben Sie das Geburtsdatum der Person an.');
+	$GLOBALS['TL_LANG']['tl_family']['dateOfBirth'] = array('Geburtsdatum','Bitte geben Sie das Geburtsdatum der Person an.');
+	$GLOBALS['TL_LANG']['tl_family']['dateOfDeath'] = array('Sterbedatum','Bitte geben Sie das Sterbedatum der Person an.');
+	$GLOBALS['TL_LANG']['tl_family']['isDeceased'] = array('Ist bereits verstorben','Bitte geben Sie an, ob die Person bereits verstorben ist.');
   $GLOBALS['TL_LANG']['tl_family']['gender'] = array('Geschlecht','Bitte geben Sie das Geschlecht der Person an.');
   $GLOBALS['TL_LANG']['tl_family']['street'] = array('Straße','Bitte geben Sie die Straße der Adresse an.');
   $GLOBALS['TL_LANG']['tl_family']['postal'] = array('PLZ','Bitte geben Sie die Postleitzahl des Wohnortes an.');

@@ -110,8 +110,9 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__'                => array(),
-		'default'                     => '{personal_legend},firstname,lastname,nameOfBirth,gender,dateOfBirth;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible'
+		'__selector__'                => array('isDeceased'),
+		'default'                     => '{personal_legend},firstname,lastname,nameOfBirth,gender,dateOfBirth;{deceased_legend},isDeceased;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible',
+		'isDeceased'				  => '{personal_legend},firstname,lastname,nameOfBirth,gender,dateOfBirth;{deceased_legend},isDeceased,dateOfDeath;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible'
 	),
 
 	// Fields
@@ -158,9 +159,26 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'eval'                    => array('maxlength'=>255, 'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
 		),
+		'isDeceased' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['isDeceased'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'eval'					  => array('submitOnChange' => true),
+			'sql'                     => "char(1) NOT NULL default ''"
+		),
 		'dateOfBirth' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['dateOfBirth'],
+			'exclude'                 => true,
+			'inputType'               => 'text',
+			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50 wizard'),
+			'sql'                     => "varchar(11) NOT NULL default ''"
+		),
+		'dateOfDeath' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['dateOfDeath'],
 			'exclude'                 => true,
 			'inputType'               => 'text',
 			'eval'                    => array('rgxp'=>'date', 'datepicker'=>true, 'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50 wizard'),
