@@ -125,7 +125,7 @@
 			if($arrColumn['type'] == 'int'){
 				$arrEmptyEntry[$arrColumn['name']] = 0;
 			}
-			elseif($arrColumn['type'] == 'varchar') {
+			elseif($arrColumn['type'] == 'varchar' || $arrColumn['type'] == 'char') {
 				$arrEmptyEntry[$arrColumn['name']] = '';
 			}
 		 }
