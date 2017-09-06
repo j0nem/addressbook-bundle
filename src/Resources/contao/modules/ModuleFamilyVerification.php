@@ -153,12 +153,15 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	*/
 	protected function fetchMemberEntries() {
 		$arrMemberEntries = array();
-		$memberEntries = $this->Database->query("SELECT m.email,m.id,m.about_me,m.tstamp,m.groups,f.firstname,f.lastname FROM tl_member m JOIN tl_family f ON f.account_id = m.id");
+		$memberEntries = $this->Database->query("SELECT m.email,m.id,m.about_me,m.tstamp,m.groups,m.disable,f.firstname,f.lastname FROM tl_member m JOIN tl_family f ON f.account_id = m.id");
 		while($arrMemberEntry = $memberEntries->fetchAssoc()) {
 			if($arrMemberEntry['groups']) {
 				$arrMemberGroups = unserialize($arrMemberEntry['groups']);
 
-				if(!in_array($this->intVerifiedGroup, $arrMemberGroups) && in_array($this->intUnverifiedGroup, $arrMemberGroups))
+				if(!in_array($this->intVerifiedGroup, $arrMemberGroups)
+					&& in_array($this->intUnverifiedGroup, $arrMemberGroups)
+					&& $arrMemberEntry['disable'] != 1
+				)
 				{
 					$arrMemberEntries[$arrMemberEntry['id']] = $arrMemberEntry;
 				}
