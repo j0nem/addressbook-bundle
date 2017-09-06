@@ -28,6 +28,7 @@ div.okay{
     padding: 3px 0px 3px 22px;
     margin-left: 20px;
     margin-top: 10px;
+    margin-bottom:15px;
     color: #589b0e;
     background: url(../../system/themes/flexible/icons/ok.svg) no-repeat left center;
 }
