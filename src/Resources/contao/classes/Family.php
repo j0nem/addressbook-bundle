@@ -64,11 +64,12 @@
 
 	 public static function formatDate($elem, $yearOnly = true, $withAge = true) {
 		if($elem['dateOfBirth']) {
+			$str = '∗ ';
 			if($yearOnly) {
-				$str = date('Y',$elem['dateOfBirth']);
+				$str .= date('Y',$elem['dateOfBirth']);
 			}
 			else {
-				$str = date('d.m.Y',$elem['dateOfBirth']);
+				$str .= date('d.m.Y',$elem['dateOfBirth']);
 			}
 			//add age
 			if($withAge && !$elem['isDeceased']) {
