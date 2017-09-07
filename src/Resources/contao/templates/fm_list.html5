@@ -38,11 +38,14 @@
 		<?php if($this->activeRecord['birthday']) : ?><p class="icon birthday"><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p><?php endif; ?>
 		<?php if($this->activeRecord['about_me']) : ?><p class="icon family"><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p><?php endif; ?>
 
-		<h2>Kontakt</h2>
-		<?php if($this->activeRecord['city']) : ?><p class="icon location"><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>
-		<?php if($this->activeRecord['email']) : ?><p class="icon email"><b>E-Mail:</b> <?= $this->activeRecord['email'] ?></p><?php endif; ?>
-		<?php if($this->activeRecord['phone']) : ?><p class="icon phone"><b>Telefon:</b> <?= $this->activeRecord['phone'] ?></p><?php endif; ?>
-		<?php if($this->activeRecord['mobile']) : ?><p class="icon mobile"><b>Handy:</b> <?= $this->activeRecord['mobile'] ?></p><?php endif; ?>
+		<?php if(!$this->activeRecord['isDeceased']) : ?>
+			<h2>Kontakt</h2>
+			<?php if($this->activeRecord['city']) : ?><p class="icon location"><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>
+			<?php if($this->activeRecord['email']) : ?><p class="icon email"><b>E-Mail:</b> <?= $this->activeRecord['email'] ?></p><?php endif; ?>
+			<?php if($this->activeRecord['phone']) : ?><p class="icon phone"><b>Telefon:</b> <?= $this->activeRecord['phone'] ?></p><?php endif; ?>
+			<?php if($this->activeRecord['mobile']) : ?><p class="icon mobile"><b>Handy:</b> <?= $this->activeRecord['mobile'] ?></p><?php endif; ?>
+		<?php endif; ?>
+
 		<h2>Familie</h2>
 		<?php if($this->activeRecord['father']) : ?><p class="icon father"><b>Vater:</b> <?= $this->activeRecord['father_link'] ?></p><?php endif; ?>
 		<?php if($this->activeRecord['mother']) : ?><p class="icon mother"><b>Mutter:</b> <?= $this->activeRecord['mother_link'] ?></p><?php endif; ?>
