@@ -160,7 +160,7 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	*/
 	protected function publishNewEntry($intId) {
 		//update tl_family
-		$this->Database->prepare("UPDATE tl_family SET visible = 1,tstamp = ? WHERE id = ?")->execute($intId,time());
+		$this->Database->prepare("UPDATE tl_family SET visible = 1,tstamp = ? WHERE id = ?")->execute(time(),$intId);
 
 		//create new version of tl_family
 		$objVersion = new \Versions('tl_family',$intId);
