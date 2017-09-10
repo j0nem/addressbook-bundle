@@ -60,6 +60,7 @@
 	protected function compile()
 	{
 		$this->import('FrontendUser','User');
+		global $objPage;
 
 		//Redirect if not logged in
 		if(!FE_USER_LOGGED_IN){
@@ -83,13 +84,13 @@
 				$arrActiveRecord['about_me'] = $acc->about_me;
 			}
 			if($arrActiveRecord['father']) {
-				$arrActiveRecord['father_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['father'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['father'])).'</a>';
+				$arrActiveRecord['father_link'] = '<a href="'.$objPage->getFrontendUrl('/id/'.$arrActiveRecord['father']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['father'])).'</a>';
 			}
 			if($arrActiveRecord['mother']) {
-				$arrActiveRecord['mother_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['mother'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['mother'])).'</a>';
+				$arrActiveRecord['mother_link'] = '<a href="'.$objPage->getFrontendUrl('/id/'.$arrActiveRecord['mother']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['mother'])).'</a>';
 			}
 			if($arrActiveRecord['partner']) {
-				$arrActiveRecord['partner_link'] = '<a href="'.$this->addToUrl('id=' . $arrActiveRecord['partner'], ['_locale']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['partner'])).'</a>';
+				$arrActiveRecord['partner_link'] = '<a href="'.$objPage->getFrontendUrl('/id/'.$arrActiveRecord['partner']).'">'.Family::formatName(Family::getAddressEntry($arrActiveRecord['partner'])).'</a>';
 			}
 			if($arrActiveRecord['partner_relation']) {
 				\Controller::loadLanguageFile('tl_family');
@@ -97,7 +98,7 @@
 			}
 			if($ch = Family::getChildren($arrActiveRecord['id'])) {
 				foreach($ch as $chId) {
-					$arrActiveRecord['children'][$chId]['link'] = '<a href="'.$this->addToUrl('id=' . $chId, ['_locale']).'">'.Family::formatName(Family::getAddressEntry($chId)).'</a>';
+					$arrActiveRecord['children'][$chId]['link'] = '<a href="'.$objPage->getFrontendUrl('/id/'.$chId).'">'.Family::formatName(Family::getAddressEntry($chId)).'</a>';
 				}
 			}
 
@@ -114,9 +115,8 @@
 				}
 			}
 			$this->Template->activeRecord = $arrActiveRecord;
-			$this->Template->backHref = $this->addToUrl('id=',['_locale','id']);
+			$this->Template->backHref = $objPage->getFrontendUrl();
 
-			global $objPage;
 			$objPage->pageTitle = Family::formatName($arrList[\Input::get('id')]);
 		}
 
@@ -127,7 +127,7 @@
 			foreach($arrList as $elem) {
 				$elem['name_string'] = Family::formatName($elem,true);
 				$elem['date_string'] = Family::formatDate($elem);
-				$elem['detail_link'] = '<a href="'.$this->addToUrl('id=' . $elem['id'],['_locale']).'">'.$elem['name_string'].'</a>';
+				$elem['detail_href'] = $objPage->getFrontendUrl('/id/'.$elem['id']);
 
 				if($elem['city']) {
 					$elem['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($elem,true)).'" target="_blank">'.Family::formatResidence($elem).'</a>';

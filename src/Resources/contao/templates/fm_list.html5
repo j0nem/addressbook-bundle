@@ -2,30 +2,57 @@
 
 <section class="fm_list">
 
-	<div class="list-wrapper">
-
-	<div class="list-entry head">
-		<div class="list-column head">Name</div>
-		<div class="list-column head">Geburtsjahr</div>
-		<div class="list-column head">Telefon</div>
-		<div class="list-column head">Handy</div>
-		<div class="list-column head">Wohnort</div>
+	<div id="view-toggler">
+		<span class="blocks active"></span>
+		<span class="list"></span>
 	</div>
 
-
-	<?php foreach ($this->arrFamily as $mem) : ?>
-		<div class="list-entry">
-			<div class="list-column"><?= $mem['detail_link'] ?></div>
-			<div class="list-column"><?= $mem['date_string'] ?></div>
-			<div class="list-column"><?= $mem['phone'] ?></div>
-			<div class="list-column"><?= $mem['mobile'] ?></div>
-			<div class="list-column"><?= $mem['gmaps_link'] ?></div>
+	<div class="list-wrapper blocks">
+		<div class="list-entry head">
+			<div class="list-column head">Name</div>
+			<div class="list-column head">Geburtsjahr</div>
+			<div class="list-column head">Telefon</div>
+			<div class="list-column head">Handy</div>
+			<div class="list-column head">Wohnort</div>
 		</div>
-	<?php endforeach; ?>
 
+		<?php foreach ($this->arrFamily as $mem) : ?>
+			<a href="<?= $mem['detail_href'] ?>" class="block-link">
+				<div class="list-entry">
+					<div class="list-column name"><?= $mem['name_string'] ?></div>
+					<div class="list-column date"><?= $mem['date_string'] ?></div>
+					<div class="list-column phone"><?= $mem['phone'] ?></div>
+					<div class="list-column mobile"><?= $mem['mobile'] ?></div>
+					<object><div class="list-column location"><?= $mem['gmaps_link'] ?></div></object>
+				</div>
+			</a>
+		<?php endforeach; ?>
 	</div>
 
 </section>
+<script>
+	$('#view-toggler .blocks').click(function() {
+		$(this).addClass('active');
+		$('#view-toggler .list').removeClass('active');
+		$('.list-wrapper').addClass('blocks');
+		$('.list-wrapper').removeClass('list');
+	});
+	$('#view-toggler .list').click(function() {
+		$(this).addClass('active');
+		$('#view-toggler .blocks').removeClass('active');
+		$('.list-wrapper').addClass('list');
+		$('.list-wrapper').removeClass('blocks');
+	});
+	$(window).resize(function() {
+		if($(window).width() <= 880) {
+			$('#view-toggler .list').removeClass('active');
+			$('#view-toggler .blocks').addClass('active');
+			$('.list-wrapper').addClass('blocks');
+			$('.list-wrapper').removeClass('list');
+		}
+	});
+</script>
+
 <?php elseif($this->mode == 'detail') : ?>
 
 <section class="fm_detail">
