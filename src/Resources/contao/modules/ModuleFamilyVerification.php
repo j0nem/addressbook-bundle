@@ -21,6 +21,9 @@
  */
 namespace Jmedia;
 
+use Contao\CoreBundle\Monolog\ContaoContext;
+use Psr\Log\LogLevel;
+
 class ModuleFamilyVerification extends \BackendModule {
 
 	protected $strTemplate = 'be_verification';
@@ -97,7 +100,7 @@ class ModuleFamilyVerification extends \BackendModule {
 	*/
 	protected function verifyMember($intId) {
 		//get current groups of member
-		$data = $this->Database->prepare("SELECT groups FROM tl_member WHERE id = ?")->execute($intId);
+		$data = $this->Database->prepare("SELECT id,email,groups FROM tl_member WHERE id = ?")->execute($intId);
 		$arrData = $data->fetchAssoc();
 
 		//put current group IDs of the user in array
@@ -113,21 +116,36 @@ class ModuleFamilyVerification extends \BackendModule {
 			unset($arrGroups[array_search($this->intUnverifiedGroup,$arrGroups)]);
 			$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $intId);
 		}
+
+		//create new version of tl_member
+		$objVersion = new \Versions('tl_member',$intId);
+		$objVersion->create();
+
 		//publish addressbook entry
 		$this->Database->prepare("UPDATE tl_family SET visible = '1' WHERE account_id = ?")->execute($intId);
+
+		//create new version of tl_family
+		$arrRecord = $this->Database->prepare("SELECT id FROM tl_family WHERE account_id = ?")->execute($intId)->fetchAssoc();
+		$objVersion = new \Versions('tl_family',$arrRecord['id']);
+		$objVersion->create();
+
+		//log verification
+		$logger = \System::getContainer()->get('monolog.logger.contao');
+		$strText = 'Family Member with Member ID '.$arrData['id'].' ('.$arrData['email'].') has been verified';
+		$logger->log(LogLevel::INFO,$strText,array('contao' => new ContaoContext(__METHOD__, 'ACCESS')));
 	}
 
 	protected function sendInfoMail($intId) {
 		$objMail = new \Email();
-		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
-		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
+		$objMail->from = \Config::get('adminEmail');
+		$objMail->fromName = \Config::get('websiteTitle');
 		$objMail->subject = 'Ihr Account wurde verifiziert';
 
 		$user = $this->Database->prepare("SELECT m.email,f.firstname,f.lastname FROM tl_member m JOIN tl_family f ON f.account_id = m.id WHERE m.id = ?")->execute($intId);
 		$arrUser = $user->fetchAssoc();
 
 		$objMail->html = '<p>Hallo '.$arrUser['firstname'].' '.$arrUser['lastname'].',</p>
-<p>Ihr Account bei '.$GLOBALS['TL_CONFIG']['websiteTitle'].' wurde erfolgreich von einem Administrator verifiziert.<br />
+<p>Ihr Account bei '.\Config::get('websiteTitle').' wurde erfolgreich von einem Administrator verifiziert.<br />
 Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. Gerne können Sie sich einloggen und beim Aufbau des Adressbuchs mithelfen:</p>
 <p><a href="http://'.\Environment::get('httpHost').'">Zum Login</a></p><p>Vielen Dank!</p>';
 
@@ -141,7 +159,12 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	* @return void
 	*/
 	protected function publishNewEntry($intId) {
+		//update tl_family
 		$this->Database->prepare("UPDATE tl_family SET visible = 1 WHERE id = ?")->execute($intId);
+
+		//create new version of tl_family
+		$objVersion = new \Versions('tl_family',$intId);
+		$objVersion->create();
 	}
 
 	/**
@@ -182,7 +205,6 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 			$arrBookEntry['strDateOfBirth'] = $arrBookEntry['dateOfBirth'] ? date('m.d.Y',$arrBookEntry['dateOfBirth']) : '';
 			$arrBookEntries[] = $arrBookEntry;
 		}
-
 		return $arrBookEntries;
 	}
 
