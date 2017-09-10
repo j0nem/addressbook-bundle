@@ -138,7 +138,7 @@
 
 		$arrFamily = Family::getAddressEntryOfMember($this->User->id);
 		$objMail = new \Email();
-		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
+		$objMail->from = \Config::get('adminEmail');
 		$objMail->fromName = $arrFamily['firstname'] . ' '. $arrFamily['lastname'] . ' via Familienadressbuch';
 		$objMail->subject = $arrFamily['firstname'] . ' '. $arrFamily['lastname'] . ' möchte Sie zum Familienadressbuch einladen!';
 		$objMail->html = '<h2>Sie haben eine Einladung erhalten!</h2>'

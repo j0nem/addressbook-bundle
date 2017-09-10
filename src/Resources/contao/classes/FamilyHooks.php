@@ -37,9 +37,9 @@
 
 	public function sendVerificationEmail(\MemberModel $memberModel, \ModuleRegistration $registrationModule) {
 		$objMail = new \Email();
-		$objMail->from = $GLOBALS['TL_CONFIG']['adminEmail'];
-		$objMail->fromName = $GLOBALS['TL_CONFIG']['websiteTitle'];
-		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . $GLOBALS['TL_CONFIG']['websiteTitle'];
+		$objMail->from = \Config::get('adminEmail');
+		$objMail->fromName = \Config::get('websiteTitle');
+		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . \Config::get('websiteTitle');
 
 		$addressEntry = Family::getAddressEntryOfMember($memberModel->id);
 		$addressEntry['strDateOfBirth'] = $addressEntry['dateOfBirth'] ? date('m.d.Y',$addressEntry['dateOfBirth']) : '';
