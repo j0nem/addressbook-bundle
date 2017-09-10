@@ -114,7 +114,7 @@ class ModuleFamilyVerification extends \BackendModule {
 		if($arrData) {
 			$arrGroups[] = $this->intVerifiedGroup;
 			unset($arrGroups[array_search($this->intUnverifiedGroup,$arrGroups)]);
-			$this->Database->prepare("UPDATE tl_member SET groups = ? WHERE id = ?")->execute(serialize($arrGroups), $intId);
+			$this->Database->prepare("UPDATE tl_member SET groups = ?,tstamp = ? WHERE id = ?")->execute(serialize($arrGroups), $intId,time());
 		}
 
 		//create new version of tl_member
@@ -122,7 +122,7 @@ class ModuleFamilyVerification extends \BackendModule {
 		$objVersion->create();
 
 		//publish addressbook entry
-		$this->Database->prepare("UPDATE tl_family SET visible = '1' WHERE account_id = ?")->execute($intId);
+		$this->Database->prepare("UPDATE tl_family SET visible = '1',tstamp = ? WHERE account_id = ?")->execute($intId,time());
 
 		//create new version of tl_family
 		$arrRecord = $this->Database->prepare("SELECT id FROM tl_family WHERE account_id = ?")->execute($intId)->fetchAssoc();
@@ -160,7 +160,7 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	*/
 	protected function publishNewEntry($intId) {
 		//update tl_family
-		$this->Database->prepare("UPDATE tl_family SET visible = 1 WHERE id = ?")->execute($intId);
+		$this->Database->prepare("UPDATE tl_family SET visible = 1,tstamp = ? WHERE id = ?")->execute($intId,time());
 
 		//create new version of tl_family
 		$objVersion = new \Versions('tl_family',$intId);
