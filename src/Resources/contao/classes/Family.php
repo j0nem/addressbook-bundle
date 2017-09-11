@@ -51,6 +51,10 @@
 		if($elem['isDeceased']) {
 			$str .= ' ✝ ';
 		}
+		if($elem['title']) {
+			\Controller::loadLanguageFile('tl_family');
+			$str .= $GLOBALS['TL_LANG']['tl_family']['title_options'][$elem['title']] . ' ';
+		}
 		$str .= $elem['lastname'] . ', ' . $elem['firstname'];
 		if($elem['nameOfBirth'] && $elem['name'] != $elem['nameOfBirth']) {
 			 $str .=  ' ';

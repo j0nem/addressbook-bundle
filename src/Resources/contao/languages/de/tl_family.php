@@ -40,7 +40,9 @@
  /**
   * Fields
   */
-  $GLOBALS['TL_LANG']['tl_family']['firstname'] = array('Vorname','Bitte geben Sie den Vornamen der Person an.');
+	$GLOBALS['TL_LANG']['tl_family']['title'] = array('Titel','Bitte geben Sie, falls vorhanden, den Titel der Person an.');
+	$GLOBALS['TL_LANG']['tl_family']['title_options'] = array('dr' => 'Dr.','prof' => 'Prof.');
+	$GLOBALS['TL_LANG']['tl_family']['firstname'] = array('Vorname','Bitte geben Sie den Vornamen der Person an.');
   $GLOBALS['TL_LANG']['tl_family']['lastname'] = array('Nachname','Bitte geben Sie den Nachnamen der Person an.');
   $GLOBALS['TL_LANG']['tl_family']['nameOfBirth'] = array('Geburtsname','Bitte geben Sie den Geburtsnamen der Person an (falls abweichend).');
 	$GLOBALS['TL_LANG']['tl_family']['dateOfBirth'] = array('Geburtsdatum','Bitte geben Sie das Geburtsdatum der Person an.');

@@ -49,6 +49,7 @@
 	 */
 	 protected $arrFields = [
 		'personal_legend' => [
+			'title' => [],
 			'firstname' => [],
 			'lastname' => [],
 			'nameOfBirth' => [],
@@ -225,7 +226,7 @@
 				elseif(in_array($clm,['phone','mobile','fax'])) {
 					$strType = 'tel';
 				}
-				elseif(in_array($clm,['gender','country','mother','father','partner','partner_relation'])) {
+				elseif(in_array($clm,['title','gender','country','mother','father','partner','partner_relation'])) {
 					$strType = 'select';
 					$arrOptions = $this->getSelectOptions($clm);
 					//add chosen to big select fields
@@ -395,6 +396,13 @@
 			$arrCountries = \System::getCountries();
 			$arrCountries[''] = '-';
 			return $arrCountries;
+		}
+		//=== TITLE FIELD ====
+		elseif($strClm == 'title') {
+			\Controller::loadLanguageFile('tl_family');
+			$arrOptions = &$GLOBALS['TL_LANG']['tl_family']['title_options'];
+			$arrOptions[''] = '-';
+			return $arrOptions;
 		}
 		//=== FAMILY FIELD ===
 		elseif(in_array($strClm,['mother','father','partner'])){
