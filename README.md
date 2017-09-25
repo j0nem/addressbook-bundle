@@ -1,6 +1,3 @@
-[![Packagist Pre Release](https://img.shields.io/packagist/vpre/symfony/symfony.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
-[![Packagist](https://img.shields.io/packagist/dt/doctrine/orm.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
-
 # Family Addressbook
 An extension for the [Contao Open Source CMS](https://contao.org). Works currently with Contao 4.4.x.
 
