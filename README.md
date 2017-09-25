@@ -1,3 +1,6 @@
+[![GitHub PreRelease](https://img.shields.io/packagist/vpre/j0nem/addressbook-bundle.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
+[![Packagist Downloads](https://img.shields.io/packagist/dt/j0nem/addressbook-bundle.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
+
 # Family Addressbook
 An extension for the [Contao Open Source CMS](https://contao.org). Works currently with Contao 4.4.x.
 
