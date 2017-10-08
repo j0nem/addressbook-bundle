@@ -111,8 +111,8 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 	'palettes' => array
 	(
 		'__selector__'                => array('isDeceased'),
-		'default'                     => '{personal_legend},title,firstname,lastname,nameOfBirth,gender,dateOfBirth;{deceased_legend},isDeceased;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible',
-		'isDeceased'				  => '{personal_legend},title,firstname,lastname,nameOfBirth,gender,dateOfBirth;{deceased_legend},isDeceased,dateOfDeath;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible'
+		'default'                     => '{personal_legend},title,firstname,lastname,nameOfBirth,gender,dateOfBirth,avatar;{deceased_legend},isDeceased;{account_legend},account_id;{address_legend},street,postal,city,country;{contact_legend},phone,mobile,fax;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible',
+		'isDeceased'				  => '{personal_legend},title,firstname,lastname,nameOfBirth,gender,dateOfBirth,avatar;{deceased_legend},isDeceased,dateOfDeath;{family_legend},mother,father,partner,partner_relation;{visible_legend},visible'
 	),
 
 	// Fields
@@ -168,6 +168,14 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('maxlength'=>255, 'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(255) NOT NULL default ''"
+		),
+		'avatar' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['avatar'],
+			'exclude'                 => true,
+			'inputType'               => 'fileTree',
+			'eval'                    => array('extensions'=> \Config::get('validImageTypes'),'filesOnly' => true,'feViewable'=>true, 'fieldType'=>'radio', 'isGallery'=>true,'tl_class'=> 'clr'),
+			'sql'                     => "binary(16) NULL"
 		),
 		'isDeceased' => array
 		(
