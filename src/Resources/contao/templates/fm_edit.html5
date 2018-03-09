@@ -3,7 +3,7 @@
 <section class="fm_edit">
 <?php if($this->firstLogin) : ?>
     <div class="success-box">
-        <p>Sie haben sich erfolgreich angemeldet! Sie können jetzt Ihren Adressbucheintrag ergänzen. Sobald Ihr Account von einem Administrator verifiziert wurde, wird Ihr Eintrag veröffentlicht und Sie können auf die vollständige Liste zugreifen.</p>
+        <p>Du hast dich erfolgreich angemeldet! Sie kannst du deinen Adressbucheintrag ergänzen. Sobald dein Account von einem Administrator verifiziert wurde, wird dein Eintrag veröffentlicht und du kannst auf die vollständige Liste zugreifen.</p>
     </div>
 <?php endif; ?>
 <?php if($this->success) : ?>

@@ -4,17 +4,17 @@
         <p>Folgende Probleme müssen zuerst gelöst werden:</p>
         <ul>
         <?php if($this->arrStatusMessages['no_unverified_group']) : ?>
-            <li>Es wurde keine Mitgliedergruppe für "Nicht-verifizierte Mitglieder" gefunden! Bitte rufen Sie den Einrichtungsassistenten auf.</li>
+            <li>Es wurde keine Mitgliedergruppe für "Nicht-verifizierte Mitglieder" gefunden! Bitte ruf den Einrichtungsassistenten auf.</li>
         <?php endif; ?>
         <?php if($this->arrStatusMessages['no_verified_group']) : ?>
-            <li>Es wurde keine Mitgliedergruppe für "Verifizierte Mitglieder" gefunden! Bitte rufen Sie den Einrichtungsassistenten auf.</li>
+            <li>Es wurde keine Mitgliedergruppe für "Verifizierte Mitglieder" gefunden! Bitte ruf den Einrichtungsassistenten auf.</li>
         <?php endif; ?>
         </ul>
     </div>
 <?php endif; ?>
 
 <h2 class="sub_headline">Unverifizierte Mitglieder</h2>
-<div class="hint">Hier finden Sie alle neu registrierten Mitglieder, die noch nicht von einem Administrator verifiziert wurden.</div>
+<div class="hint">Hier findest du alle neu registrierten Mitglieder, die noch nicht von einem Administrator verifiziert wurden.</div>
 <?php if($this->memberEntries) : ?>
 <div class="tl_listing_container list_view">
 <table class="tl_listing showColumns"><tbody>
@@ -49,7 +49,7 @@
 <?php endif; ?>
 
 <h2 class="sub_headline">Neue Adressbucheinträge</h2>
-<div class="hint">Hier finden Sie alle neuen Adressbucheinträge, die von verifizierten Mitgliedern vorgenommen wurden.</div>
+<div class="hint">Hier findest du alle neuen Adressbucheinträge, die von verifizierten Mitgliedern vorgenommen wurden.</div>
 <?php if($this->bookNew) : ?>
 <div class="tl_listing_container list_view">
 <table class="tl_listing showColumns"><tbody>

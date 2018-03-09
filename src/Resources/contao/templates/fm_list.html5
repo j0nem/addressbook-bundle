@@ -58,7 +58,7 @@
 <section class="fm_detail">
 
 <?php if($this->isMyProfile) : ?><a class="side-link button" href="<?= $this->editHref ?>">Mein Profil bearbeiten</a><?php endif; ?>
-<?php if($this->isNotMaintained) : ?><a class="side-link button" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlagen Sie Änderungen vor</a><?php endif; ?>
+<?php if($this->isNotMaintained) : ?><a class="side-link button" href="<?= $this->suggestHref ?>">Ist etwas falsch? Schlage Änderungen vor</a><?php endif; ?>
 
 	<div class="profile">
 		<h2>Allgemeines</h2>

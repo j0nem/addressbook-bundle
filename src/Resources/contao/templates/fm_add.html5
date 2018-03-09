@@ -18,11 +18,11 @@
 <?php elseif($this->page == 'invitation-success') : ?>
     <h2>Einladung erfolgreich!</h2>
     <p>Wir haben eine Einladung an <?= $this->email ?> geschickt. Die Person wurde dazu eingeladen, sich beim Adressbuch zu registrieren.</p>
-    <p>Vielen Dank für Ihre Hilfe!</p>
+    <p>Vielen Dank für deine Hilfe!</p>
     <p><a href="<?= $this->backHref ?>">Zurück</a></p>
 <?php elseif($this->page == 'add-form') : ?>
     <h2>Person ohne eigenen Zugang anlegen</h2>
-    <div class="hint-box"><p>Bitte beachten Sie, dass die hier angelegte Person sich selbst <strong>nicht</strong> beim Adressbuch anmelden und die Liste aufrufen kann.</p></div>
+    <div class="hint-box"><p>Bitte beachte, dass die hier angelegte Person sich selbst <strong>nicht</strong> beim Adressbuch anmelden und die Liste aufrufen kann.</p></div>
     <form method="POST">
         <input type="hidden" name="FORM_SUBMIT" value="add-form" />
         <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
@@ -58,7 +58,7 @@
     <h2>Person erfolgreich hinzugefügt!</h2>
     <div class="success-box"><p>Die Person wurde erfolgreich angelegt!</p></div>
     <p>Der neue Eintrag wird noch von einem Administrator verifiziert, bevor er veröffentlicht wird.</p>
-    <p>Vielen Dank für Ihre Mithilfe!</p>
+    <p>Vielen Dank für deine Mithilfe!</p>
     <p><a href="<?= $this->backHref ?>">Zurück</a></p>
 <?php endif; ?>
 </section>

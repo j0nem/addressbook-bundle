@@ -1,32 +1,32 @@
 <?php $GLOBALS['TL_CSS'][] = 'bundles/jmediaaddressbook/backend.css' ?>
 
 <h2 class="sub_headline">Was ist das?</h2>
-<div class="hint">Hier können Sie sehen, ob alle notwendigen Schritte zur Einrichtung des Familienadressbuch-Moduls vorgenommen wurden und erhalten Hinweise, was noch zu tun ist.</div>
+<div class="hint">Hier kannst du sehen, ob alle notwendigen Schritte zur Einrichtung des Familienadressbuch-Moduls vorgenommen wurden und erhältst Hinweise, was noch zu tun ist.</div>
 
 <h2 class="sub_headline">Gruppen-Einrichtung</h2>
 <div class="hint">Die Gruppenzuordnungen sind notwendig für den Verifizierungsprozess und für den Schutz von bestimmten Seiten.</div>
 <?php if(!$this->groupSetup['verified']) : ?>
-    <div class="problem">Bitte richten Sie in den Mitgliedergruppen eine Gruppe der Funktion "Verifizierte Mitglieder" ein.</div>
+    <div class="problem">Bitte richte in den Mitgliedergruppen eine Gruppe der Funktion "Verifizierte Mitglieder" ein.</div>
 <?php else : ?>
     <div class="okay">Gruppe "Verifizierte Mitglieder" ist eingerichtet (ID <?= $this->groupSetup['verified']['id'] ?>)</div>
 <?php endif; ?>
 <?php if(!$this->groupSetup['unverified']) : ?>
-    <div class="problem">Bitte richten Sie in den Mitgliedergruppen eine Gruppe der Funktion "Nicht-verifizierte Mitglieder" ein.</div>
+    <div class="problem">Bitte richte in den Mitgliedergruppen eine Gruppe der Funktion "Nicht-verifizierte Mitglieder" ein.</div>
 <?php else : ?>
     <div class="okay">Gruppe "Nicht-verifizierte Mitglieder" ist eingerichtet (ID <?= $this->groupSetup['unverified']['id'] ?>)</div>
 <?php endif; ?>
 
 <h2 class="sub_headline">Modul-Einrichtung</h2>
-<div class="hint">Bitte beachten Sie, dass Sie zusätzlich Module wie "User-Registrierung", "Login" und ggf. "Passwort vergessen" einrichten sollten.</div>
+<div class="hint">Bitte beachte, dass du zusätzlich Module wie "User-Registrierung", "Login" und ggf. "Passwort vergessen" einrichten solltest.</div>
 <?php if(!$this->moduleSetup['fm_list']['module']) : ?>
-    <div class="problem">Bitte fügen Sie das Modul "Adressbuch-Liste" zu den Frontend-Modulen des Seitenlayout hinzu und binden Sie es in einem Artikel ein.</div>
+    <div class="problem">Bitte füge das Modul "Adressbuch-Liste" zu den Frontend-Modulen des Seitenlayout hinzu und binde es in einem Artikel ein.</div>
 <?php elseif(!$this->moduleSetup['fm_list']['content']) : ?>
-    <div class="problem">Bitte binden Sie das Modul "Adressbuch-Liste" in einem Artikel ein.</div>
+    <div class="problem">Bitte binde das Modul "Adressbuch-Liste" in einem Artikel ein.</div>
 <?php else : ?>
     <div class="okay">Modul "Adressbuch-Liste" ist eingerichtet (Modul ID <?= $this->moduleSetup['fm_list']['module']['id'] ?>, Content Element ID <?= $this->moduleSetup['fm_list']['content']['id'] ?>)</div>
 <?php endif; ?>
 <?php if(!$this->moduleSetup['fm_edit']['module']) : ?>
-    <div class="problem">Bitte fügen Sie das Modul "Adressbucheintrag bearbeiten" zu den Frontend-Modulen des Seitenlayout hinzu und binden Sie es in einem Artikel ein.</div>
+    <div class="problem">Bitte füge das Modul "Adressbucheintrag bearbeiten" zu den Frontend-Modulen des Seitenlayout hinzu und binde es in einem Artikel ein.</div>
 <?php elseif(!$this->moduleSetup['fm_edit']['content']) : ?>
     <div class="problem">Bitte binden Sie das Modul "Adressbucheintrag bearbeiten" in einem Artikel ein.</div>
 <?php else : ?>
@@ -34,9 +34,9 @@
 <?php endif; ?>
 
 <h2 class="sub_headline">Admin-Benachrichtigungs-Einrichtung</h2>
-<div class="hint">Die Benachrichtigungseinstellungen können Sie in den Backend-Benutzereinstellungen vornehmen.</div>
+<div class="hint">Die Benachrichtigungseinstellungen kannst du in den Backend-Benutzereinstellungen vornehmen.</div>
 <?php if(empty($this->adminSetup)) : ?>
-    <div class="problem">Bitte richten Sie bei "Benutzer" mind. einen Backend-Administrator ein, der E-Mail-Benachrichtigungen erhält.</div>
+    <div class="problem">Bitte richte bei "Benutzer" mind. einen Backend-Administrator ein, der E-Mail-Benachrichtigungen erhält.</div>
 <?php else : ?>
     <div class="okay">Folgende Admins erhalten momentan E-Mail-Benachrichtigungen:
         <?php foreach($this->adminSetup as $arrUser) : ?><br /><?= $arrUser['email'] ?><?php endforeach; ?>
@@ -46,7 +46,7 @@
 <h2 class="sub_headline">Einrichtung der Weiterleitung nach dem ersten Login</h2>
 <div class="hint">Die Weiterleitungsseite ist wichtig, damit neue Mitglieder an die Vervollständigung ihres Adressbucheintrags erinnert werden.</div>
 <?php if(empty($this->redirectionSetup)) : ?>
-    <div class="problem">Bitte richten Sie im Website-Startpunkt (Seitenstruktur) eine Weiterleitungsseite ein, die auf eine Seite mit dem Modul "Eigenen Eintrag bearbeiten" verweist.</div>
+    <div class="problem">Bitte richte im Website-Startpunkt (Seitenstruktur) eine Weiterleitungsseite ein, die auf eine Seite mit dem Modul "Eigenen Eintrag bearbeiten" verweist.</div>
 <?php else : ?>
     <div class="okay">Weiterleitungsseite ist eingerichtet (Seite ID <?= $this->redirectionSetup['id'] ?>: "<?= $this->redirectionSetup['title'] ?>")</div>
 <?php endif; ?>
