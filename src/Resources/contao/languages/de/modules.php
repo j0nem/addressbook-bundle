@@ -18,9 +18,9 @@
 
  //Backend Modules
 $GLOBALS['TL_LANG']['MOD']['family'] = 'Familienadressbuch';
-$GLOBALS['TL_LANG']['MOD']['fm_addressbook'] = array('Adressbuch','Hier können Sie die Daten aller Mitglieder verwalten');
-$GLOBALS['TL_LANG']['MOD']['fm_verification'] = array('Verifikation','Hier können Sie neue Mitglieder, Anderungsvorschläge und neu hinzugefügte Adressbucheinträge überprüfen und freischalten');
-$GLOBALS['TL_LANG']['MOD']['fm_setup'] = array('Einrichtungsassistent','Hier können Sie sehen, ob alle notwendigen Schritte zur Einrichtung des Familienadressbuch-Moduls vorgenommen wurden und erhalten Hinweise, was noch zu tun ist.');
+$GLOBALS['TL_LANG']['MOD']['fm_addressbook'] = array('Adressbuch','Hier kannst du die Daten aller Mitglieder verwalten');
+$GLOBALS['TL_LANG']['MOD']['fm_verification'] = array('Verifikation','Hier kannst du neue Mitglieder, Anderungsvorschläge und neu hinzugefügte Adressbucheinträge überprüfen und freischalten');
+$GLOBALS['TL_LANG']['MOD']['fm_setup'] = array('Einrichtungsassistent','Hier kannst du sehen, ob alle notwendigen Schritte zur Einrichtung des Familienadressbuch-Moduls vorgenommen wurden und erhältst Hinweise, was noch zu tun ist.');
 
 //Frontend Modules
 $GLOBALS['TL_LANG']['FMD']['family'] = 'Familienadressbuch';

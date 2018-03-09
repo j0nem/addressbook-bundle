@@ -16,4 +16,4 @@
  * @license GPL-3.0+
  */
 
- $GLOBALS['TL_LANG']['tl_user']['family_notifications'] = array('Adressbuch-Benachrichtigungen','Bitte wählen Sie, ob der angegebene Backend-Benutzer E-Mail Benachrichtigungen erhalten soll, wie z.B. über neue Mitglieder-Registrierungen.');
+ $GLOBALS['TL_LANG']['tl_user']['family_notifications'] = array('Adressbuch-Benachrichtigungen','Bitte wähle, ob der angegebene Backend-Benutzer E-Mail Benachrichtigungen erhalten soll, wie z.B. über neue Mitglieder-Registrierungen.');

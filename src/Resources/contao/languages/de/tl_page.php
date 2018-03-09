@@ -16,5 +16,5 @@
  * @license GPL-3.0+
  */
 
- $GLOBALS['TL_LANG']['tl_page']['family_jumpTo'] = array('Weiterleitung zu Adressbuch-Bearbeitung','Geben Sie eine Seite an, die das Modul "Eigenen Adressbucheintrag bearbeiten" enthält, damit neue Mitglieder nach dem ersten Login auf die Profilvervollständigung aufmerksam gemacht werden.');
+ $GLOBALS['TL_LANG']['tl_page']['family_jumpTo'] = array('Weiterleitung zu Adressbuch-Bearbeitung','Gib eine Seite an, die das Modul "Eigenen Adressbucheintrag bearbeiten" enthält, damit neue Mitglieder nach dem ersten Login auf die Profilvervollständigung aufmerksam gemacht werden.');
  $GLOBALS['TL_LANG']['tl_page']['family_legend'] = 'Familienadressbuch';

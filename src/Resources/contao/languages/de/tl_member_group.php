@@ -17,7 +17,7 @@
  */
 
 $GLOBALS['TL_LANG']['tl_member_group']['family_legend'] = 'Einstellungen für Familienadressbuch';
-$GLOBALS['TL_LANG']['tl_member_group']['family_group_type'] = array('Gruppenfunktion','Bitte geben Sie an, wenn nötig, ob diese Gruppe verifizierte oder nicht-verifizierte Mitglieder repräsentiert.');
+$GLOBALS['TL_LANG']['tl_member_group']['family_group_type'] = array('Gruppenfunktion','Bitte gib an, wenn nötig, ob diese Gruppe verifizierte oder nicht-verifizierte Mitglieder repräsentiert.');
 $GLOBALS['TL_LANG']['tl_member_group']['family_group_type_options'] = array(
 	'verified' 		=> 'Verifizierte Mitglieder',
 	'unverified' 	=> 'Nicht-verifiziete Mitglieder'
