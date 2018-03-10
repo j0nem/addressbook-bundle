@@ -20,6 +20,10 @@
 
  class FamilyHooks extends \System {
 
+	public function __construct() {
+		return $this;
+	}
+
 	/**
 	 * Move Data from registration form (name, date of birth) from tl_member to tl_family
 	 */
@@ -59,7 +63,7 @@ Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 		}
 	}
 
-	public function redirectIfProfileNotCompleted(\User $objUser) {
+	public function redirectIfProfileNotCompleted($objUser) {
 		if ($objUser instanceof \FrontendUser) {
 			$arrEntry = Family::getAddressEntryOfMember($objUser->id);
 			if($arrEntry && $arrEntry['completed'] != 1) {
