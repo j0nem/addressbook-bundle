@@ -17,7 +17,7 @@
  */
 
  //Add "group type" field to palettes
- $GLOBALS['TL_DCA']['tl_member_group']['palettes'] = str_replace('{disable_legend}','{family_legend},family_group_type;{disable_legend}',$GLOBALS['TL_DCA']['tl_member_group']['palettes']);
+ $GLOBALS['TL_DCA']['tl_member_group']['palettes']['default'] = str_replace('{disable_legend}','{family_legend},family_group_type;{disable_legend}',$GLOBALS['TL_DCA']['tl_member_group']['palettes']['default']);
 
  //Add "group type" select field
  $GLOBALS['TL_DCA']['tl_member_group']['fields']['family_group_type'] = array(

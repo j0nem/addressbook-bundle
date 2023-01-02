@@ -17,15 +17,15 @@
  */
 
  //Remove everything except mandatory account fields in the palettes
- $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('{personal_legend},firstname,lastname,dateOfBirth,gender;{address_legend:hide},company,street,postal,city,state,country;','',$GLOBALS['TL_DCA']['tl_member']['palettes']);
- $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('phone,mobile,fax,','',$GLOBALS['TL_DCA']['tl_member']['palettes']);
- $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace(',website,language','',$GLOBALS['TL_DCA']['tl_member']['palettes']);
+ $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace('{personal_legend},firstname,lastname,dateOfBirth,gender;{address_legend:hide},company,street,postal,city,state,country;','',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
+ $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace('phone,mobile,fax,','',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
+ $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace(',website,language','',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
 
  //Remove firstname and lastname from list view
  $GLOBALS['TL_DCA']['tl_member']['list']['label']['fields'] = array('icon','email','dateAdded');
 
  //Add about_me in palettes
- $GLOBALS['TL_DCA']['tl_member']['palettes'] = str_replace('email','email;{verify_legend},about_me,verified',$GLOBALS['TL_DCA']['tl_member']['palettes']);
+ $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace('email','email;{verify_legend},about_me,verified',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
 
  //Add "Edit Adressbook" action button
  $GLOBALS['TL_DCA']['tl_member']['list']['operations']['edit_addressbook'] = array(
