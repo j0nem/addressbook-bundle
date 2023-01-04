@@ -47,6 +47,9 @@
 	 }
 
 	 public static function formatName($elem, $withHtml = false) {
+		if (!$elem) {
+			return '';
+		}
 		$str = '';
 		if($elem['isDeceased']) {
 			$str .= ' ✝ ';
@@ -57,7 +60,7 @@
 			$str .= $GLOBALS['TL_LANG']['tl_family']['title_options'][$elem['title']] . ' ';
 		}
 		$str .= $elem['firstname'];
-		if($elem['nameOfBirth'] && $elem['name'] != $elem['nameOfBirth']) {
+		if($elem['nameOfBirth'] && isset($elem['name']) && $elem['name'] != $elem['nameOfBirth']) {
 			 $str .=  ' ';
 			 if($withHtml) $str .= '<span class="nameOfBirth">';
 			 $str .= '(geb. ' . $elem['nameOfBirth'] . ')';
@@ -99,15 +102,22 @@
 		$str = '';
 
 		if($withAddress) {
-			$str .= $elem['street'] . ', ' . $elem['postal'] . ' ';
+			$withComma = $elem['street'] && ($elem['postal'] || $elem['city'] || $elem['country']);
+			$addSth = $elem['street'] || $elem['postal'];
+			if ($addSth) {
+				$str .= ($elem['street'] ? $elem['street'] : '') . ($withComma ? ', ' : '') . ($elem['postal'] ? $elem['postal'] : '') ;
+			}
 		}
-		$str .= $elem['city'] . ', ' . $GLOBALS['TL_LANG']['CNT'][$elem['country']];
+
+		$addSpace = $str !== '' && ($elem['city'] || $elem['country']);
+		$addComma = $elem['city'] && $elem['country'];
+		$str .= ($addSpace ? ' ' : '') . ($elem['city'] ? $elem['city'] : '') . ($addComma ? ', ' : ''). ($elem['country'] ? $GLOBALS['TL_LANG']['CNT'][$elem['country']] : '');
 
 		return $str;
 	 }
 
 	 public static function getAddressEntry($id) {
-		return static::fullList()[$id];
+		return static::fullList()[$id] ?? null;
 	 }
 
 	 public static function getAddressEntryOfMember($id) {

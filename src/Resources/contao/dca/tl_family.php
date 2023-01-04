@@ -132,7 +132,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'sorting'                 => true,
 			'inputType'               => 'select',
 			'options'				  => array('dr','prof'),
-			'reference'				  => $GLOBALS['TL_LANG']['tl_family']['title_options'],
+			'reference'				  => &$GLOBALS['TL_LANG']['tl_family']['title_options'],
 			'eval'                    => array('includeBlankOption'=>true,'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
@@ -207,7 +207,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'label'                   => &$GLOBALS['TL_LANG']['tl_family']['gender'],
 			'exclude'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('male', 'female'),
+			'options'                 => array('male', 'female', 'other'),
 			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
 			'eval'                    => array('includeBlankOption'=>true, 'feEditable'=>true, 'feViewable'=>true, 'tl_class'=>'w50'),
 			'sql'                     => "varchar(32) NOT NULL default ''"
@@ -331,7 +331,7 @@ $GLOBALS['TL_DCA']['tl_family'] = array
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'select',
-			'options'				  => array('relationship','engaged','married'),
+			'options'				  => array('relationship','married'),
 			'reference'				  => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options'],
 			'eval'                    => array('tl_class'=>'w50','includeBlankOption' => true),
 			'sql'                     => "varchar(255) NOT NULL default '0'"

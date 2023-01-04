@@ -23,7 +23,9 @@
 					<div class="list-column date"><?= $mem['date_string'] ?></div>
 					<div class="list-column phone"><?= $mem['phone'] ?></div>
 					<div class="list-column mobile"><?= $mem['mobile'] ?></div>
-					<object><div class="list-column location"><?= $mem['gmaps_link'] ?></div></object>
+					<div class="list-column location">
+						<?php if(isset($mem['residence'])) : ?><?= $mem['residence'] ?><?php endif; ?>
+					</div>
 				</div>
 			</a>
 		<?php endforeach; ?>
@@ -63,12 +65,12 @@
 	<div class="profile">
 		<h2>Allgemeines</h2>
 		<?php if($this->activeRecord['birthday']) : ?><p class="icon birthday"><b>Geburtstag:</b> <?= $this->activeRecord['birthday'] ?></p><?php endif; ?>
-		<?php if($this->activeRecord['about_me']) : ?><p class="icon family"><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p><?php endif; ?>
+		<?php if(isset($this->activeRecord['about_me'])) : ?><p class="icon family"><b>Familienzugehörigkeit:</b> <?= $this->activeRecord['about_me'] ?></p><?php endif; ?>
 
 		<?php if(!$this->activeRecord['isDeceased']) : ?>
 			<h2>Kontakt</h2>
-			<?php if($this->activeRecord['city']) : ?><p class="icon location"><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>
-			<?php if($this->activeRecord['email']) : ?><p class="icon email"><b>E-Mail:</b> <?= $this->activeRecord['email'] ?></p><?php endif; ?>
+			<?php if($this->activeRecord['city'] || $this->activeRecord['country']) : ?><p class="icon location"><b>Adresse:</b> <?= $this->activeRecord['gmaps_link'] ?></p><?php endif; ?>
+			<?php if(isset($this->activeRecord['email'])) : ?><p class="icon email"><b>E-Mail:</b> <?= $this->activeRecord['email'] ?></p><?php endif; ?>
 			<?php if($this->activeRecord['phone']) : ?><p class="icon phone"><b>Telefon:</b> <?= $this->activeRecord['phone'] ?></p><?php endif; ?>
 			<?php if($this->activeRecord['mobile']) : ?><p class="icon mobile"><b>Handy:</b> <?= $this->activeRecord['mobile'] ?></p><?php endif; ?>
 		<?php endif; ?>
@@ -78,7 +80,7 @@
 		<?php if($this->activeRecord['mother']) : ?><p class="icon mother"><b>Mutter:</b> <?= $this->activeRecord['mother_link'] ?></p><?php endif; ?>
 		<?php if($this->activeRecord['partner']) : ?><p class="icon partner"><b>Partner:</b> <?= $this->activeRecord['partner_link'] ?><?php if($this->activeRecord['partner_relation']) : ?> (<?= $this->activeRecord['str_partner_relation'] ?>)<?php endif; ?></p><?php endif; ?>
 
-		<?php if($this->activeRecord['children']) : ?>
+		<?php if(isset($this->activeRecord['children'])) : ?>
 			<p class="icon children"><b>Kinder:</b></p>
 			<ul>
 			<?php foreach($this->activeRecord['children'] as $ch) : ?>
@@ -87,7 +89,7 @@
 			</ul>
 		<?php endif; ?>
 
-		<?php if(!$this->activeRecord['father'] && !$this->activeRecord['mother'] && !$this->activeRecord['partner'] && !$this->activeRecord['children']) : ?>Keine Verbindungen eingetragen.<?php endif; ?>
+		<?php if(!isset($this->activeRecord['father']) && !isset($this->activeRecord['mother']) && !isset($this->activeRecord['partner']) && !isset($this->activeRecord['children'])) : ?>Keine Verbindungen eingetragen.<?php endif; ?>
 		<p></p>
 		<p><a href="<?= $this->backHref; ?>">Zurück zur Liste</a></p>
 	</div>

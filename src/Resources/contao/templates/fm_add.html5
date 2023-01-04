@@ -31,7 +31,7 @@
                 <h3><?= $this->legendLabels[$strGroup] ?></h3>
                 <?php foreach ($arrFields as $clm => $field) : ?>
                     <div class="field <?= $clm ?>"<?php if($field['doNotShow']) : ?> style="display:none"<?php endif; ?>>
-                        <?php if($this->add_error['error'] == $clm) : ?>
+                        <?php if(isset($this->add_error['error']) && $this->add_error['error'] == $clm) : ?>
                             <div class="ce_text error-box"><p><?= $this->add_error['label'] ?></p></div>
                         <?php endif; ?>
                         <label for="<?= $clm ?>"><?= $field['label'] ?></label>

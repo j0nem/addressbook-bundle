@@ -230,7 +230,7 @@
 					$strType = 'select';
 					$arrOptions = $this->getSelectOptions($clm);
 					//add chosen to big select fields
-					if(count($arrOptions) > 3) {
+					if(count($arrOptions) > 5) {
 						$strAttributes .= ' class="chosen"';
 					}
 				}
@@ -387,8 +387,9 @@
 		if($strClm == 'gender') {
 			return [
 				'' => '-',
+				'female' => &$GLOBALS['TL_LANG']['MSC']['female'],
 				'male' => &$GLOBALS['TL_LANG']['MSC']['male'],
-				'female' => &$GLOBALS['TL_LANG']['MSC']['female']
+				'other' => &$GLOBALS['TL_LANG']['MSC']['other'],
 			];
 		}
 		//=== COUNTRY FIELD ===
@@ -406,9 +407,7 @@
 		}
 		//=== FAMILY FIELD ===
 		elseif(in_array($strClm,['mother','father','partner'])){
-			$arrOptions =  Family::nameList(true);
-			//add empty option
-			$arrOptions[0] = '-';
+			$arrOptions = [0 => '-'] + Family::nameList(true);
 			//unset own entry from select options
 			if($this->type == 'update-with-member-id' || $this->type == 'update-with-family-id') {
 				unset($arrOptions[$this->arrFamily['id']]);
@@ -420,7 +419,6 @@
 			return [
 				'' => '-',
 				'relationship' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['relationship'],
-				'engaged' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['engaged'],
 				'married' => &$GLOBALS['TL_LANG']['tl_family']['partner_relation_options']['married'],
 			];
 		}

@@ -15,8 +15,8 @@
         <?php foreach($this->data as $strGroup => $arrFields) : ?>
             <h2><?= $this->legendLabels[$strGroup] ?></h2>
             <?php foreach ($arrFields as $clm => $field) : ?>
-                <div class="field <?= $clm ?>"<?php if($field['doNotShow']) : ?> style="display:none"<?php endif; ?>>
-                    <?php if($this->error['error'] == $clm) : ?>
+                <div class="field <?= $clm ?>"<?php if(isset($field['doNotShow']) && $field['doNotShow']) : ?> style="display:none"<?php endif; ?>>
+                    <?php if(isset($this->error['error']) && $this->error['error'] == $clm) : ?>
                         <div class="ce_text error-box"><p><?= $this->error['label'] ?></p></div>
                     <?php endif; ?>
                     <label for="<?= $clm ?>" id="<?= $clm ?>"><?= $field['label'] ?></label>
@@ -43,6 +43,7 @@
 $(document).ready(function(){
     $('.chosen').chosen({
         'width': '21%',
+        'search_contains': true,
         'no_results_text': 'Keinen Eintrag gefunden'
     });
 });

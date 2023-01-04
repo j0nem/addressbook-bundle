@@ -16,6 +16,7 @@
  * @license GPL-3.0+
  */
 
+
  //Remove everything except mandatory account fields in the palettes
  $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace('{personal_legend},firstname,lastname,dateOfBirth,gender;{address_legend:hide},company,street,postal,city,state,country;','',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
  $GLOBALS['TL_DCA']['tl_member']['palettes']['default'] = str_replace('phone,mobile,fax,','',$GLOBALS['TL_DCA']['tl_member']['palettes']['default']);
@@ -36,7 +37,7 @@
  );
 
  $GLOBALS['TL_DCA']['tl_member']['fields']['about_me'] = array(
-	'label'			=> $GLOBALS['TL_LANG']['tl_member']['about_me'],
+	'label'			=> &$GLOBALS['TL_LANG']['tl_member']['about_me'],
 	'exclude'		=> true,
 	'inputType'		=> 'textarea',
 	'eval'			=> array('mandatory'=>true, 'maxlength'=>500, 'feEditable'=>true, 'feViewable'=>true),

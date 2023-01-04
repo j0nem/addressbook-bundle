@@ -215,6 +215,7 @@ Ihr Adressbucheintrag ist jetzt für alle Mitglieder auf der Website sichtbar. G
 	*/
 	protected function fetchBookUpdates() {
 		$bookUpdates = $this->Database->query("SELECT * FROM tl_family_update WHERE reviewed = ''");
+		$arrBookUpdates = [];
 		while($arrBookUpdate = $bookUpdates->fetchAssoc()) {
 			$arrBookUpdates[$arrBookUpdate['id']] = $arrBookUpdate;
 		}

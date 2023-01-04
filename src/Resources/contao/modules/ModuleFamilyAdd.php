@@ -18,8 +18,6 @@
 
  namespace Jmedia;
 
- use Patchwork\Utf8;
-
  class ModuleFamilyAdd extends \Module
 {
 	/**
@@ -46,7 +44,7 @@
 			/** @var BackendTemplate|object $objTemplate */
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['fm_add'][0]) . ' ###';
+			$objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['FMD']['fm_add'][0] . ' ###';
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;
 			$objTemplate->link = $this->name;

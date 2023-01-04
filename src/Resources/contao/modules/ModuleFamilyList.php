@@ -18,8 +18,6 @@
 
  namespace Jmedia;
 
- use Patchwork\Utf8;
-
  class ModuleFamilyList extends \Module
 {
  	/**
@@ -41,7 +39,7 @@
 			/** @var BackendTemplate|object $objTemplate */
 			$objTemplate = new \BackendTemplate('be_wildcard');
 
-			$objTemplate->wildcard = '### ' . Utf8::strtoupper($GLOBALS['TL_LANG']['FMD']['fm_list'][0]) . ' ###';
+			$objTemplate->wildcard = '### ' . $GLOBALS['TL_LANG']['FMD']['fm_list'][0] . ' ###';
 			$objTemplate->title = $this->headline;
 			$objTemplate->id = $this->id;
 			$objTemplate->link = $this->name;
@@ -76,9 +74,10 @@
 			$arrActiveRecord = $arrList[\Input::get('id')];
 			$arrActiveRecord['birthday'] = Family::formatDate($arrActiveRecord,false);
 
-			if($arrActiveRecord['city']) {
+			if ($arrActiveRecord['city'] || $arrActiveRecord['country']) {
 				$arrActiveRecord['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($arrActiveRecord,true)).'" target="_blank">'.Family::formatResidence($arrActiveRecord,true).'</a>';
 			}
+			
 			if($acc = Family::getAccountOfAddressEntry($arrActiveRecord['id'])) {
 				$arrActiveRecord['email'] = '<a href="mailto:'.$acc->email.'">'.$acc->email.'</a>';
 				$arrActiveRecord['about_me'] = $acc->about_me;
@@ -127,11 +126,10 @@
 			foreach($arrList as $elem) {
 				$elem['name_string'] = Family::formatName($elem,true);
 				$elem['date_string'] = Family::formatDate($elem);
-				$elem['detail_href'] = $objPage->getFrontendUrl('/id/'.$elem['id']);
-
-				if($elem['city']) {
-					$elem['gmaps_link'] = '<a href="https://google.com/maps/search/'.str_replace(' ','%20',Family::formatResidence($elem,true)).'" target="_blank">'.Family::formatResidence($elem).'</a>';
+				if ($elem['city'] || $elem['country']) {
+					$elem['residence'] = Family::formatResidence($elem);
 				}
+				$elem['detail_href'] = $objPage->getFrontendUrl('/id/'.$elem['id']);
 
 				$arrFamily[$elem['id']] = $elem;
 			}
