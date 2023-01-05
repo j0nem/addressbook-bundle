@@ -35,10 +35,7 @@
     ]
   },
   "config": {
-    "preferred-install": "dist",
-    "allow-plugins": {
-      "contao-components/installer": true
-    }
+    "preferred-install": "dist"
   },
   "extra": {
     "branch-alias": {

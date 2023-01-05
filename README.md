@@ -1,7 +1,5 @@
 # Family Addressbook
 
-[![Scrutinizer Build](https://img.shields.io/scrutinizer/build/g/j0nem/addressbook-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/j0nem/addressbook-bundle)
-[![Scrutinizer CodeQuality](https://img.shields.io/scrutinizer/g/j0nem/addressbook-bundle.svg?style=flat-square)](https://scrutinizer-ci.com/g/j0nem/addressbook-bundle)
 [![GitHub PreRelease](https://img.shields.io/packagist/vpre/j0nem/addressbook-bundle.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
 [![Packagist Downloads](https://img.shields.io/packagist/dt/j0nem/addressbook-bundle.svg?style=flat-square)](https://packagist.org/packages/j0nem/addressbook-bundle)
 
