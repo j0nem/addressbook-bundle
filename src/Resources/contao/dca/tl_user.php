@@ -17,7 +17,6 @@
  */
 
  //Add field "family notification" to palettes
- print_r(array_keys($GLOBALS['TL_DCA']['tl_user']['palettes']));
  $GLOBALS['TL_DCA']['tl_user']['palettes']['admin'] = str_replace('admin;','admin,family_notifications;',$GLOBALS['TL_DCA']['tl_user']['palettes']['admin']);
 
  //Add field "family notifications" to fields
