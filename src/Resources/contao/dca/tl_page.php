@@ -17,7 +17,9 @@
  */
 
  //Add family_jumpTo to palettes
- $GLOBALS['TL_DCA']['tl_page']['palettes']['root'] = str_replace('pageTitle;','pageTitle;{family_legend},family_jumpTo;',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
+
+ $GLOBALS['TL_DCA']['tl_page']['palettes']['root']  = str_replace(';{url_legend}',';{family_legend},family_jumpTo;{url_legend}',$GLOBALS['TL_DCA']['tl_page']['palettes']['root']);
+ $GLOBALS['TL_DCA']['tl_page']['palettes']['rootfallback'] = str_replace(';{url_legend}',';{family_legend},family_jumpTo;{url_legend}',$GLOBALS['TL_DCA']['tl_page']['palettes']['rootfallback']);
 
  //Add field "family_jumpTo"
  $GLOBALS['TL_DCA']['tl_page']['fields']['family_jumpTo'] = array(

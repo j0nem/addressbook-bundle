@@ -43,7 +43,7 @@
 		$objMail = new \Email();
 		$objMail->from = \Config::get('adminEmail');
 		$objMail->fromName = \Config::get('websiteTitle');
-		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . \Config::get('websiteTitle');
+		$objMail->subject = 'Neue Mitglieder-Registrierung bei ' . \Idna::decode(\Environment::get('base'));
 
 		$addressEntry = Family::getAddressEntryOfMember($memberModel->id);
 		$addressEntry['strDateOfBirth'] = $addressEntry['dateOfBirth'] ? date('m.d.Y',$addressEntry['dateOfBirth']) : '';
@@ -69,7 +69,7 @@ Familienzugehörigkeit: <br />'.$memberModel->about_me.'<br /><br />
 			if($arrEntry && $arrEntry['completed'] != 1) {
 				$arrRootPages = \PageModel::findPublishedRootPages();
 				//LIMITATION: does currently not work with multiple root pages
-				\Controller::redirect($arrRootPages[0]->getRelated('family_jumpTo')->getFrontendUrl().'/message/firstlogin');
+				\Controller::redirect($arrRootPages[0]->getRelated('family_jumpTo')->getFrontendUrl().'?message=firstlogin');
 			}
 		}
 	}

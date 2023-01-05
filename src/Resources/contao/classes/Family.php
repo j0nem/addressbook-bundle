@@ -51,16 +51,16 @@
 			return '';
 		}
 		$str = '';
-		if($elem['isDeceased']) {
+		if(isset($elem['isDeceased']) && $elem['isDeceased']) {
 			$str .= ' ✝ ';
 		}
 		$str .= $elem['lastname'] . ', ';
-		if($elem['title']) {
+		if(isset($elem['title']) && $elem['title']) {
 			\Controller::loadLanguageFile('tl_family');
 			$str .= $GLOBALS['TL_LANG']['tl_family']['title_options'][$elem['title']] . ' ';
 		}
 		$str .= $elem['firstname'];
-		if($elem['nameOfBirth'] && isset($elem['name']) && $elem['name'] != $elem['nameOfBirth']) {
+		if(isset($elem['nameOfBirth']) && $elem['nameOfBirth'] && isset($elem['name']) && $elem['name'] != $elem['nameOfBirth']) {
 			 $str .=  ' ';
 			 if($withHtml) $str .= '<span class="nameOfBirth">';
 			 $str .= '(geb. ' . $elem['nameOfBirth'] . ')';
